@@ -1,0 +1,492 @@
+= Evoluzione di alberi di comportamento con un algoritmo genetico
+:toc-title: Indice
+:figure-caption: Figura
+:section-refsig: Sezione
+:table-caption: Tabella
+:listing-caption: Listato
+:note-caption: Nota
+:xrefstyle: short
+:bibtex-file: bibliography.bib
+:bibtex-order: appearance
+:bibtex-style: ieee
+:bibtex-locale: it-IT
+:imagesdir: ./images
+:source-highlighter: rouge
+:imagesdir: ./assets/images
+:pdf-themesdir: .
+:pdf-theme: report
+:pdf-fontsdir: assets/fonts/FiraCode;GEM_FONTS_DIR
+:icons: font
+:stem: latexmath
+
+Università di Bologna · Campus di Cesena
+
+Corso di Laurea Magistrale in Ingegneria e Scienze Informatiche
+
+'''
+
+|=======
+|[.normalize]#Riccardo Battistini# |[.normalize]#0001034968#
+|=======
+
+<<<
+
+<<<
+
+== Introduzione
+
+Il progetto consiste nell'implementazione di un controller evolutivo per un robot progettato per navigare in una griglia bidimensionale. Il controller utilizza un albero di comportamento, appreso tramite un algoritmo genetico, per gestire comportamenti come l'evitamento degli ostacoli e la fototassi positiva.
+
+== Design
+
+Il progetto si compone di tre moduli:
+
+- `simulation`: include le funzionalità richieste per implementare una simulazione, fornendo dei concetti generici, come quelli di agente e ambiente, a partire dai quali implementare delle applicazioni;
+- `evolution`: definisce l'algoritmo con cui si evolve un controller robotico, nella forma di un albero di comportamento e tramite programmazione genetica;
+- `laboratory`: include un'applicazione di esempio. Utilizza il modulo `simulation` per implementare il dominio della simulazione scelto e il modulo `evolution` per l'evoluzione di un controller.
+
+=== Modulo per la simulazione
+
+Il modulo `simulation` include le astrazioni per modellare:
+
+- *macchina a stati finiti*, per esprimere lo stato della simulazione osservabile in un dato istante temporale di una simulazione discreta e per la raccolta di statistiche;
+- *lavagna*, che funge da base di dati chiave-valore mantenuta in memoria;
+- *ambiente*, costituito da uno spazio, che può essere una griglia, da un insieme di entità e da una lavagna;
+- *entità*, come un agente che segue un piano e memorizza informazioni in una propria lavagna;
+- *albero di comportamento*, che consente di implementare una specifica eseguibile del comportamento di un agente.
+
+[#simulation-classes]
+.Diagramma delle classi relative al modulo per la simulazione.
+[plantuml, sim-classes, format="svg",scale=80%, align=center]
+----
+hide empty members
+skinparam shadowing false
+
+interface State
+class StateMachine
+interface Environment
+interface EnvironmentSpace
+interface SpatiallyLocalized
+interface Agent
+class BehaviorTree
+interface PlanFollower
+interface Entity
+interface EntityStore
+class Blackboard
+interface BlackboardStore
+interface Simulation
+interface Cell
+interface Token
+class SquareGrid
+interface TokenHolder
+
+Token              --* TokenHolder
+SquareGrid         --|> TokenHolder
+Cell               --* SquareGrid
+SquareGrid         --|> EnvironmentSpace
+EnvironmentSpace   --* SpatiallyLocalized
+BehaviorTree       --* PlanFollower
+Blackboard         --* BlackboardStore
+Agent              --|> BlackboardStore
+Agent              --|> PlanFollower
+Entity             --* EntityStore
+Agent              --|> Entity
+Environment        --|> SpatiallyLocalized
+Environment        --|> BlackboardStore
+Environment        --|> EntityStore
+State              --* StateMachine
+StateMachine       --* Simulation
+Environment        --* State
+----
+
+In <<simulation-classes>> è mostrato il diagramma delle classi relativo a questi concetti. Si osserva che la maggior parte sono rappresentati tramite interfacce, concepite per essere estese dalla specifica applicazione in base al dominio della simulazione.
+
+In <<btree-classes>> è mostrato il diagramma delle classi relativo alla modellazione dell'albero di comportamento. Si osservano quattro tipologie di nodi:
+
+* nodo di controllo `Sequence`. Esegue una sequenza di azioni o condizioni in ordine. Restituisce successo solo se tutti i suoi figli completano con successo. Se uno dei figli fallisce, l'esecuzione del nodo termina con un fallimento;
+* nodo di controllo `Selector`. Esegue i suoi figli in ordine fino a quando uno di essi fallisce. Se un figlio ha successo, il nodo termina con un successo, ignorando i restanti figli. Se tutti i figli falliscono, il nodo termina con un fallimento;
+* nodo foglia `Condition`. Verifica una condizione specifica nel contesto dell'esecuzione. Restituisce un successo o un fallimento in base al risultato della condizione valutata, senza eseguire ulteriori azioni;
+* nodo foglia `Action`. Implica un'interazione attiva dell'agente con l'ambiente e restituisce un successo o un fallimento in base al risultato dell'azione intrapresa.
+
+[#btree-classes]
+.Diagramma delle classi relativo agli alberi di comportamento.
+[plantuml, btree-classes, format="svg",scale=80%, align=center]
+----
+hide empty members
+skinparam shadowing false
+
+class BehaviorTree
+
+interface TreeNode
+
+interface CompositeNode
+
+class Selector
+
+class Sequence
+
+class TreeResult
+
+interface LeafNode
+
+interface ActionNode
+
+interface ConditionNode
+
+TreeNode          --* TreeResult
+ConditionNode     --|> LeafNode
+ActionNode        --|> LeafNode
+LeafNode          --|> TreeNode
+CompositeNode     --|> TreeNode
+Sequence          --|> CompositeNode
+Selector          --|> CompositeNode
+BehaviorTree      *-- TreeNode
+----
+
+L'esecuzione dell'albero si realizza propagando un segnale che rappresenta un tick della simulazione a partire dalla radice e restituendo uno stato che può essere `Successo` o `Fallimento`. La risoluzione di ciascun nodo dell'albero è istantanea.
+
+=== Modulo per l'evoluzione
+
+Il modulo `evolution` fornisce l'implementazione di diversi concetti relativi al mondo della programmazione genetica e funge da ponte tra la libreria Jenetics e le astrazioni di albero di comportamento e simulazione implementate.
+
+In particolare sono state definite le classi:
+
+- `BTreeGene` e `BTreeChromosome`: estendono rispettivamente le classi `Gene` e `Chromosome` di Jenetics. Definiscono una codifica *completa* e *minimale* che include le informazioni sufficienti a rappresentare ogni possibile soluzione del problema e che contiene solo quelle necessarie a rappresentare una soluzione del problema. Ciascun individuo della popolazione, ogni fenotipo, ha un genotipo formato da un unico cromosoma. Il cromosoma a sua volta ha un unico gene, il cui allele è un albero di comportamento.
+- `BTreeMutator`: estende la classe `Mutator` di Jenetics e definisce le operazioni di mutazione che possono essere effettuate sull'albero;
+- `BTreeCrossover`: estende la classe `Crossover` di Jenetics e definisce come avviene il crossover di due alberi;
+- `BTreeConstraint`: estende la classe `Constraint` di Jenetics e fornisce l'implementazione dei metodi per effettuare la riparazione di un individuo non valido.
+
+.Rappresentazione visiva del crossover tra due alberi.
+[#btree-crossover]
+image::mutation.svg[align=center, scale=80%]
+
+In modo analogo a cite:[iovinoLearningBehaviorTrees2020], sono state implementate operazioni di crossover e mutazione. Sono disponibili tre tipi di mutazione: aggiunta, rimozione o modifica di un nodo dell'albero. In <<btree-crossover>> è mostrato un esempio di crossover, che consiste nello scambio di sottoalberi.
+
+Oltre a queste due operazioni, ne sono state introdotte alcune per la validazione e la manipolazione della struttura dell'albero, sia per l'uso come primitive per la mutazione che per la riparazione degli alberi e la validazione degli individui di una popolazione. In <<btree-reparation>> e <<btree-randomization>> sono mostrati i relativi diagrammi di classe.
+
+[#btree-reparation]
+.Diagramma delle classi delle operazioni di riparazione degli alberi.
+[plantuml, btree-reparation, format="svg", align="center", scale=80%]
+----
+hide empty members
+skinparam shadowing false
+
+class ConditionNotLastChild
+class ControlNodeMustHaveChildren
+class NoConsecutiveControlNodes
+class NoIdenticalAdjacentConditions
+
+interface DestructiveRepairTool
+interface GenerativeRepairTool
+interface RepairTool
+
+
+RepairTool --|> TransformationTool
+GenerativeRepairTool --|> RepairTool
+DestructiveRepairTool --|> RepairTool
+ConditionNotLastChild --|> GenerativeRepairTool
+ControlNodeMustHaveChildren --|> GenerativeRepairTool
+NoConsecutiveControlNodes --|> DestructiveRepairTool
+NoIdenticalAdjacentConditions --|> DestructiveRepairTool
+
+interface TransformationTool
+
+----
+
+
+[#btree-randomization]
+.Diagramma delle classi delle operazioni di trasformazione casuale degli alberi.
+[plantuml, btree-randomization, format="svg", align="center", scale=80%]
+----
+hide empty members
+skinparam shadowing false
+
+interface BinaryRandomTool
+interface UnaryRandomTool
+interface RandomTool
+
+class BTreeCrossoverTool
+class BTreeRandomAdditionTool
+class BTreeRandomDeletionTool
+class BTreeRandomModificationTool
+
+interface TransformationTool
+
+RandomTool --|> TransformationTool
+UnaryRandomTool --|> RandomTool
+BinaryRandomTool --|> RandomTool
+BTreeCrossoverTool --|> BinaryRandomTool
+BTreeRandomAdditionTool --|> UnaryRandomTool
+BTreeRandomDeletionTool --|> UnaryRandomTool
+BTreeRandomModificationTool --|> UnaryRandomTool
+----
+
+La trasformazione degli alberi ha lo scopo di eliminare le combinazioni di nodi che non hanno effetto sull'esecuzione dell'albero di comportamento, sia tramite aggiunta che rimozione di nodi. Tra le operazioni effettuate ci sono:
+
+- l'aggiunta di un nodo di tipo azione nel caso ci sia un nodo di controllo senza figli;
+- l'aggiunta di un nodo di tipo azione come ultimo figlio nel caso ci sia un nodo di controllo che ha come ultimo figlio un nodo di condizione;
+- la rimozione di un nodo di condizione nel caso ci sia un nodo di condizione identico immediatamente precedente;
+- la rimozione di un nodo di controllo nel caso ci sia un nodo di controllo dello stesso tipo nella gerarchia dei nodi, immediatamente precedente o successivo. I figli del nodo di controllo sono promossi al livello in cui si trovava il padre.
+
+Inoltre l'utilizzo di operazioni di riparazione permette di esplorare lo spazio degli stati in modo più uniforme di quanto avverrebbe se ci si limitasse a scartare gli individui non validi cite:[wilhelmstotterJeneticsManual(63)].
+
+=== Modulo per la sperimentazione
+
+Il modulo `laboratory` fornisce l'implementazione di un esempio avente come dominio quello mostrato in <<domain>>.
+
+[#domain]
+.Descrizione del dominio di esempio scelto per il progetto.
+[example]
+----
+Un robot compie spostamenti in un ambiente definito come una griglia quadrata bidimensionale composta da celle e token. Le celle possono essere o meno navigabili. I token rappresentano delle luci o la posizione iniziale del robot.
+
+Il robot può solo muoversi in avanti, a sinistra o a destra.
+
+È incentivato a seguire le luci, realizzando in questo modo comportamenti di fototassi positiva.
+
+È penalizzato in caso di collisioni con gli ostacoli e con i confini della griglia, se si sposta su celle già visitate e se rimane fermo.
+
+Il compito del robot è di identificare il percorso ottimale, in presenza di vincoli e incertezze. In particolare deve deve massimizzare una funzione di ricompensa, andando verso le luci ed evitando gli ostacoli o i confini della griglia.
+----
+
+Il primo gene, utilizzato da tutti gli individui della popolazione iniziale, è ottenuto tramite generazione casuale di un albero. I nodi foglia tra cui avviene la selezione iniziale sono definiti dal registro di nodi impiegato per lo specifico esperimento. Il pool di geni disponibile per la sperimentazione è formato dai seguenti nodi:
+
+- `checkFor{Goal,Obstacle,Boundary,Visited}{North,South,West,East}`: restituisce un successo solo se è presente l'entità della griglia specificata nella direzione fornita ed entro un raggio predefinito. In genere si controllano sono i vicini adiacenti nella direzione fornita;
+- `moveTo{North,South,West,East}`: restituisce sempre un successo e fa muovere il robot nella direzione indicata di una cella. Se il movimento comporta lo scontro con un ostacolo o il superamento dei confini della griglia, è intercettato dalla macchina a stati finiti. Il movimento del robot è annullato e si memorizza l'avvenuta collisione. Analogamente si memorizzano le informazioni relative al movimento in celle già visitate e all'assenza di movimento.
+
+L'ambiente è modellato tramite celle libere o che contengono un ostacolo e tramite un token che indica la posizione iniziale del robot e uno che indica la posizione della luce da raggiungere. Si impiega una funzione di generazione casuale che imposta la posizione iniziale del robot e la luce agli opposti di una griglia quadrata. Gli ostacoli sono piazzati in modo da lasciare almeno un percorso libero tra la posizione di partenza e l'obiettivo.
+
+La macchina a stati finita è modellata come mostrato in <<fsm-gridworld>>. Si osserva l'impiego di tre stati, `GoalReached`, `Idle` e `Moving`. Tracciare la transizione tra questi stati permette di raccogliere statistiche sull'andamento della simulazione, fornendo dati che sono poi utilizzati per il calcolo della funzione di fitness.
+
+[#fsm-gridworld]
+.Rappresentazione della macchina a stati finiti.
+[plantuml, environment, format="svg", align="center", scale=80%]
+----
+hide empty description
+skinparam shadowing false
+
+[*] --> Idle
+GoalReached --> [*]
+
+Idle -> Moving : !isIdle
+Moving -> Idle :isIdle
+Moving -> GoalReached :isGoalReached
+----
+
+== Implementazione
+
+Di seguito si approfondiscono alcuni degli aspetti implementativi ritenuti maggiormente rilevanti per il progetto.
+
+=== Tecnologie Impiegate
+
+Il progetto è stato implementato utilizzando:
+
+- Git per il controllo di versione;
+- il JDK Eclipse Temurin;
+- i linguaggi di programmazione Java (v. 21) e Kotlin (v. 2);
+- il sistema di build automation Gradle (v. 8.8);
+- la libreria per la programmazione genetica link:https://jenetics.io/[Jenetics] (v. 8.1.0);
+- il linguaggio di markup Asciidoc e Asciidoctor (v. 2.0.22) per la documentazione.
+
+Per un elenco esaustivo delle librerie impiegate e delle relative versioni si rimanda al link:[catalogo delle versioni].
+
+=== Note implementative sul crossover e la mutazione
+
+Le operazioni di crossover e mutazione sono state definite come manipolazioni della struttura dati dell'albero senza utilizzare una rappresentazione intermedia come stringa, a differenza di quanto svolto in cite:[iovinoLearningBehaviorTrees2020].
+
+Le due tipologie di operazioni sono state implementate in questo modo:
+
+* nel crossover si sceglie casualmente un nodo di controllo in ciascuno dei due alberi fornito in ingresso. Dopodiché si scambiano i due sottoalberi selezionati, in modo che il sottoalbero del primo albero sia posto dove si trovava il sottoalbero del secondo, e viceversa. L'operazione si applica a due alberi e restituisce due alberi modificati;
+* la mutazione esegue una delle tre operazioni di aggiunta, rimozione o modifica di un nodo con il 33% di probabilità per ciascuna di esse. In particolare:
+** nell'aggiunta si ha una probabilità del 50% di selezionare un nodo di controllo e del 50% un nodo foglia. La scelta è dovuta anche alla considerazione per cui queste percentuali rispecchiano l'effettiva composizione degli alberi di comportamento cite:[iovinoLearningBehaviorTrees2020]. La probabilità che il nodo foglia sia azione o condizione dipende dalla composizione del pool di nodi foglia per lo specifico esperimento;
+** nella rimozione si sceglie un nodo dell'albero casualmente, indipendentemente dal suo tipo. Nel caso il nodo rimosso sia di controllo, si può scegliere se preservare i suoi figli, promuovendoli al livello in cui si trovava il nodo di controllo, oppure se eliminarli. La modalità di funzionamento è definita dall'esperimento;
+** nella modifica di un nodo si svolgono azioni diverse a seconda del tipo di nodo. Nel caso di un nodo di controllo può comportare o lo scambio di tipo tra selettore e sequenza preservando i figli, oppure la conversione in un nodo foglia, promuovendo i figli allo stesso livello del nodo di controllo. Nel caso di un nodo foglia può determinare o la sostituzione con un nodo di controllo oppure la sostituzione con un qualsiasi altro nodo del registro del pool di nodi foglia.
+
+=== Impiego di un registro di nodi foglia
+
+È stato implementato il pattern Flyweight perché il pool di nodi foglia sia condiviso da tutti gli alberi. In questo modo, indipendentemente dal numero di alberi istanziati durante l'esecuzione dell'algoritmo genetico, esisterà una sola istanza di ciascun nodo foglia per ogni tipologia.
+
+=== Definizione della funzione di fitness
+
+La funzione di fitness è definita in modo da penalizzare le generazioni che non raggiungono l'obiettivo e da ricompensare le porzioni di albero che costituiscono un buon materiale genetico.
+
+La valutazione avviene a partire dalle statistiche raccolte sull'andamento di una simulazione, ovvero:
+
+. distanza iniziale dalla luce;
+. distanza finale dalla luce;
+. numero di iterazioni con collisione;
+. numero di iterazioni senza movimento;
+. numero di celle rivisitate;
+. numero di iterazioni effettuate;
+. dimensione dell'albero di comportamento.
+
+La distanza iniziale e finale dalla luce sono impiegate per il calcolo della ricompensa per la fototassi, in modo da incentivare comportamenti che determinano il raggiungimento della luce. La formula corrispondente è la seguente:
+
+[stem]
+++++
+sqrt(4) = 2
+++++
+
+dove X indica il peso della ricompensa per la fototassi.
+
+Il numero di iterazioni con collisione è utilizzato per il calcolo della penalità dovuta alle collisioni. L'obiettivo è disincentivare comportamenti che determinano un maggior numero di collisioni rispetto agli altri. La formula corrispondente è la seguente:
+
+[stem]
+++++
+sqrt(4) = 2
+++++
+
+dove X indica il peso della penalità per le collisioni.
+
+Il numero di iterazioni senza movimento è utilizzato per disincentivare comportamenti che non si traducono nell'esplorazione dell'ambiente. Si calcola in questo modo:
+
+[stem]
+++++
+sqrt(4) = 2
+++++
+
+dove X indica il peso della penalità per l'assenza di movimento.
+
+Il numero di celle rivisitate è impiegato per incentivare la ricerca di percorsi efficienti, che riducono il backtracking il più possible. Insieme al numero di iterazioni effettuate consente di penalizzare percorsi eccessivamente lunghi. La penalità complessiva si calcola nel seguente modo:
+
+[stem]
+++++
+sqrt(4) = 2
+++++
+
+dove X indica il peso delle celle rivisitate e Y il peso legato al numero di iterazioni effettuate.
+
+La dimensione dell'albero di comportamento consente la definizione di una penalità per disincentivare l'evoluzione di controller troppo complessi. È calcolata in questo modo:
+
+[stem]
+++++
+sqrt(4) = 2
+++++
+
+dove X è il peso della penalità per la dimensione dell'albero.
+
+Il risultato finale si ottiene sommando i singoli contributi e può essere ottenuto calcolando la media dei valori di fitness ottenuti su più di un ambiente di test, ovvero su griglie diverse. In questo modo si migliora il grado di robustezza del controller e la sua capacità di generalizzazione.
+
+=== DSL per alberi di comportamento e griglie
+
+Per facilitare la definizione degli alberi di comportamento manuale, è stato implementato un DSL interno per realizzare una loro specifica concisa. Un esempio di utilizzo è mostrato in <<btree-dsl-example>> e una sua rappresentazione in <<btree-string>>.
+
+[#btree-dsl-example]
+.Rappresentazione di un albero di comportamento che consente di effettuare la navigazione in un GridWorld evitando gli ostacoli e dirigendosi verso la luce.
+[source, kotlin]
+----
+btree {
+  +sel("Navigation") {
+    +seq("Phototaxis") {
+      +checkForAndStore(setOf(GreenLight))
+      +turnToFollowStored
+      +moveForward
+    }
+    +seq {
+      +sel {
+        +seq("ObstacleAvoidance") {
+          +checkForAndStore(setOf(Obstacle, Boundary))
+          +turnToAvoidStored
+        }
+        +turnRandomly
+      }
+      +moveForward
+    }
+  }
+}
+----
+
+[#btree-string]
+.Rappresentazione di un albero di comportamento in formato testuale.
+[example]
+----
+└── Navigation
+    ├── Phototaxis
+    │   ├── checkForAndStore[GreenLight]
+    │   ├── turnToFollowStored
+    │   └── moveForward
+    └── Sequence
+        ├── Selector
+        │   ├── ObstacleAvoidance
+        │   │   ├── checkForAndStore[Obstacle, Boundary]
+        │   │   └── turnToAvoidStored
+        │   └── turnRandomly
+        └── moveForward
+----
+
+In modo analogo è stato definito un DSL per la specifica della struttura della griglia, un cui esempio di utilizzo è mostrato in <<grid-dsl-example>> e la relativa rappresentazione in <<grid-string>>.
+
+[#grid-dsl-example]
+.Rappresentazione della griglia di default, impiegata sia nei test che quando si disabilita la generazione casuale di griglie negli esperimenti.
+[source, kotlin]
+----
+grid(
+  DIMENSIONS,
+  mapOf(
+    'o' to { p: Point -> Obstacle(p) },
+    'c' to { p: Point -> Clear(p) },
+  ),
+) {
+  'c' + 'c' + 'o' + 'c' + 'c' + 'c' -
+  'c' + 'o' + 'c' + 'c' + 'c' + 'c' -
+  'c' + 'o' + 'c' + 'c' + 'c' + 'c' -
+  'c' + 'o' + 'c' + 'o' + 'c' + 'c' -
+  'c' + 'c' + 'c' + 'o' + 'c' + 'c' -
+  'c' + 'o' + 'c' + 'c' + 'c' + 'c'
+}
+----
+
+[#grid-string]
+.Rappresentazione di una griglia. Si osserva la distinzione tra le celle libere `.` e quelle occupate da un ostacolo `O` e tra i token che denotano la posizione iniziale del robot `S`, la posizione corrente del robot `B` e la luce che deve essere raggiunta, ovvero l'obiettivo `G`.
+[source, example]
+----
+| S | . | O | . | . | . |
+| . | O | . | . | . | . |
+| . | O | . | . | . | . |
+| B | O | . | O | . | . |
+| . | . | . | O | . | . |
+| . | O | . | . | . | G |
+----
+
+== Valutazione
+
+=== Test e qualità del codice
+
+Al fine di garantire il corretto funzionamento dell'algoritmo genetico è stata realizzata una suite di test per verificare il funzionamento delle operazioni necessarie alla manipolazione degli alberi e alla definizione del loro grado di fitness nelle simulazioni.
+
+I test sono stati realizzati impiegando il formato delle `ShouldSpec`, introdotto dalla libreria `Kotest`. Sono disponibili nel modulo `laboratory`. Tramite `Kover` è  stato misurato il grado di coverage per il codice relativo ai moduli `simulation` e `laboratory`, raggiungendo una coverage pari a circa il 70%.
+
+Per quanto riguarda la qualità del codice sono stati impiegati gli strumenti `Ktlint` e `Detekt`, in modo da definire una formattazione comune e da eliminare i code smell più comuni.
+
+=== Esperimenti
+
+I test sono stati eseguiti sulle seguenti configurazioni hardware:
+
+- Intel Core i7-10700 @4.8 GHz e 16 GB di RAM;
+- AMD Ryzen 9 7945HX @5.4GHz e 32 GB di RAM.
+
+Le configurazioni dei principali parametri sono le seguenti:
+
+* il numero iniziale di individui della popolazione;
+* il numero di generazioni;
+* le percentuali di crossover e mutazione;
+* il pool di geni impiegato per costruire gli alberi;
+* diversi metodi di selezione, come `Elitism` e `Tournament`.
+
+Nel repository è riportato un elenco esaustivo di tutti i parametri configurabili e del loro utilizzo negli esperimenti effettuati.
+
+I risultati sono mostrati sia in termini di una gif, che raccoglie i frame di una singola simulazione con il miglior albero identificato, che tramite un log del funzionamento del sistema, sia su stdio che su file.
+
+il tempo di convergenza...
+
+Si osserva che ...
+
+== Conclusioni
+
+Lo svolgimento di questo progetto ha portato alla realizzazione di un sistema per l'implementazione automatica di un controller robotico che consenta di portare a termine semplici compiti di navigazione in un ambiente simulato.
+
+Il progetto è disponibile con licenza open source qui.
+
+== Bibliografia
+
+bibliography::[]

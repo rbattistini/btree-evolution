@@ -1,0 +1,40 @@
+[versions]
+kotlin = "2.1.0"
+dokkatoo = "2.3.1"
+kover = "0.9.1"
+gitVersioning = "3.1.8-dev09-56b79bf"
+ktlint = "12.1.1"
+detekt = "1.23.7"
+kotest = "5.9.1"
+mockk = "1.13.12"
+kotlinLogging = "7.0.3"
+jetbrainsChangelog = "2.2.1"
+logback = "1.4.14"
+sonarqube = "5.1.0.4882"
+jenetics = "8.1.0"
+prngine = "2.0.0"
+slf4j = "2.0.3"
+arrow = "1.2.4"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+dokkatoo = { id = "dev.adamko.dokkatoo-html", version.ref = "dokkatoo" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+gitVersioning = { id = "org.danilopianini.git-sensitive-semantic-versioning", version.ref = "gitVersioning" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+jetbrainsChangelog = { id = "org.jetbrains.changelog", version.ref = "jetbrainsChangelog" }
+sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
+
+[libraries]
+kotest-runner = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest" }
+kotest-assertions = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
+kotest-property = { group = "io.kotest", name = "kotest-property", version.ref = "kotest" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+kotlin-logging = { group = "io.github.oshai", name = "kotlin-logging-jvm", version.ref = "kotlinLogging" }
+slf4j = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j" }
+slf4jOverLogback = { group = "org.slf4j", name = "log4j-over-slf4j", version.ref = "slf4j" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+jenetics = { group = "io.jenetics", name = "jenetics", version.ref = "jenetics" }
+jenetics-prngine = { group = "io.jenetics", name = "prngine", version.ref = "prngine" }
+arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }

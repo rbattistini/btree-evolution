@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c880bd7c-cdc3-4905-be57-cc71eb3dec27" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/ktlint-plugin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kotlin/errors/errors-1735741289204.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/Gemfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/Gemfile.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/assets/drawio/mutation.drawio" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/assets/fonts/FiraCode/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/assets/fonts/FiraCode/firacode-bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/assets/fonts/FiraCode/firacode-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/assets/images/mutation.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/bibliography.bib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/report-theme.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/report.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evolution/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evolution/src/main/kotlin/it/irs/evolution/BTreeChromosome.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evolution/src/main/kotlin/it/irs/evolution/BTreeConstraint.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evolution/src/main/kotlin/it/irs/evolution/BTreeCrossover.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evolution/src/main/kotlin/it/irs/evolution/BTreeGene.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evolution/src/main/kotlin/it/irs/evolution/BTreeMutator.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/ExperimentConfig.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/ExperimentRunner.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/Playground.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/blackboard/GridWorldWrapper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/blackboard/RobotWrapper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/btree/GridWorldLeafNodeRegistry.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/btree/GridWorldTypeAliases.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/btree/node/CheckForNodes.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/btree/node/MoveNodes.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/btree/node/NodeUtils.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/btree/node/Stop.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/btree/node/TurnToNodes.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/env/GridExtensions.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/env/GridView.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/env/GridWorld.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/env/cell/Clear.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/env/cell/Obstacle.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/env/entity/Robot.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/env/random/GridValidator.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/env/random/RandomGridGenerator.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/env/token/Light.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/env/token/Start.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/fsm/FsmTransitions.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/GoalReached.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/Idle.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/Moving.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/RSState.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/RobotState.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/sim/FitnessComputer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/sim/GridWorldSim.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/sim/GridWorldSimStatistics.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/sim/SimRunner.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/sim/Stopwatch.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/GridWorldSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/BTTransformationSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/TransformationSpecHelper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTCrossoverSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomAdditionSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomDeletionSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomGenSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomModificationSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomizationSpecHelper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/reparation/BTDestructiveReparationSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/reparation/BTGenerativeReparationSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/reparation/BTReparationSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/validation/BTValidationSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/entity/RobotSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/entity/RobotSpecHelper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/entity/RobotWithLightSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/env/RandomGridGenSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/fsm/StateMachineSpec.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/fsm/StateMachineSpecHelper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/resources/kotest.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laboratory/src/test/resources/logback-test.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/script/gen.gif.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/Environment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/Simulation.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/SimulationUtils.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/blackboard/Blackboard.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/blackboard/BlackboardStore.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/BTreeView.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/BehaviorTree.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/PlanFollower.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/builder/BTreeBuilder.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/builder/BTreeDslMarker.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/builder/BTreeRandomGenerator.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/node/BState.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/node/TreeNode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/node/branch/CompositeNode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/node/branch/Selector.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/node/branch/Sequence.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/node/leaf/ActionNode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/node/leaf/ConditionNode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/node/leaf/LeafNode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/node/leaf/LeafNodeRegistry.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/node/result/TickResult.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/node/result/TreeResult.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/TransformationTool.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/TransformationUtils.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BTreeCrossoverTool.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BTreeRandomAdditionTool.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BTreeRandomDeletionTool.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BTreeRandomModificationTool.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BinaryRandomTool.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/RandomTool.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/RandomizationUtils.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/UnaryRandomTool.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/BTreeReparation.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/ConditionNotLastChild.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/ControlNodeMustHaveChildren.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/DestructiveRepairTool.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/GenerativeRepairTool.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/NoConsecutiveControlNodes.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/NoIdenticalAdjacentConditions.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/RepairTool.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/validation/BTreeRules.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/validation/BTreeValidation.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/validation/Rule.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/entity/Agent.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/entity/Entity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/entity/EntityStore.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/fsm/State.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/fsm/StateMachine.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/space/EnvironmentSpace.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/space/SpatiallyLocalized.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/space/grid/Cell.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/space/grid/Corner.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/space/grid/Direction.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/space/grid/GridBuilder.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/space/grid/GridEntity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/space/grid/Orientation.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/space/grid/Point.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/space/grid/SquareGrid.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/space/grid/Token.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/space/grid/TokenHolder.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulation/src/main/resources/logback.xml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.gitattributes" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/ktlint-plugin.xml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.kotlin/errors/errors-1735741289204.log" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/application.log" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/build.gradle.kts" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/doc/Gemfile" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/doc/Gemfile.lock" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/doc/Makefile" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/doc/assets/drawio/mutation.drawio" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/doc/assets/fonts/FiraCode/LICENSE" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/doc/assets/fonts/FiraCode/firacode-bold.ttf" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/doc/assets/fonts/FiraCode/firacode-regular.ttf" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/doc/assets/images/mutation.svg" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/doc/bibliography.bib" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/doc/report-theme.yml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/doc/report.adoc" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/evolution/build.gradle.kts" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/evolution/src/main/kotlin/it/irs/evolution/BTreeChromosome.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/evolution/src/main/kotlin/it/irs/evolution/BTreeConstraint.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/evolution/src/main/kotlin/it/irs/evolution/BTreeCrossover.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/evolution/src/main/kotlin/it/irs/evolution/BTreeGene.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/evolution/src/main/kotlin/it/irs/evolution/BTreeMutator.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/gradle.properties" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/gradle/libs.versions.toml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/gradlew" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/gradlew.bat" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/build.gradle.kts" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/ExperimentConfig.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/ExperimentRunner.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/Playground.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/blackboard/GridWorldWrapper.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/blackboard/RobotWrapper.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/btree/GridWorldLeafNodeRegistry.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/btree/GridWorldTypeAliases.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/btree/node/CheckForNodes.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/btree/node/MoveNodes.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/btree/node/NodeUtils.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/btree/node/Stop.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/btree/node/TurnToNodes.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/env/GridExtensions.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/env/GridView.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/env/GridWorld.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/env/cell/Clear.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/env/cell/Obstacle.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/env/entity/Robot.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/env/random/GridValidator.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/env/random/RandomGridGenerator.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/env/token/Light.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/env/token/Start.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/fsm/FsmTransitions.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/GoalReached.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/Idle.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/Moving.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/RSState.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/RobotState.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/sim/FitnessComputer.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/sim/GridWorldSim.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/sim/GridWorldSimStatistics.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/sim/SimRunner.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/sim/Stopwatch.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/GridWorldSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/BTTransformationSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/TransformationSpecHelper.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTCrossoverSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomAdditionSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomDeletionSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomGenSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomModificationSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomizationSpecHelper.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/reparation/BTDestructiveReparationSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/reparation/BTGenerativeReparationSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/reparation/BTReparationSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/validation/BTValidationSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/entity/RobotSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/entity/RobotSpecHelper.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/entity/RobotWithLightSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/env/RandomGridGenSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/fsm/StateMachineSpec.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/fsm/StateMachineSpecHelper.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/resources/kotest.properties" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/resources/logback-test.xml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/script/gen.gif.sh" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/settings.gradle.kts" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/build.gradle.kts" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/Environment.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/Simulation.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/SimulationUtils.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/blackboard/Blackboard.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/blackboard/BlackboardStore.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/BTreeView.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/BehaviorTree.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/PlanFollower.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/builder/BTreeBuilder.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/builder/BTreeDslMarker.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/builder/BTreeRandomGenerator.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/node/BState.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/node/TreeNode.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/node/branch/CompositeNode.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/node/branch/Selector.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/node/branch/Sequence.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/node/leaf/ActionNode.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/node/leaf/ConditionNode.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/node/leaf/LeafNode.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/node/leaf/LeafNodeRegistry.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/node/result/TickResult.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/node/result/TreeResult.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/TransformationTool.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/TransformationUtils.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BTreeCrossoverTool.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BTreeRandomAdditionTool.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BTreeRandomDeletionTool.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BTreeRandomModificationTool.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BinaryRandomTool.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/RandomTool.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/RandomizationUtils.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/UnaryRandomTool.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/BTreeReparation.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/ConditionNotLastChild.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/ControlNodeMustHaveChildren.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/DestructiveRepairTool.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/GenerativeRepairTool.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/NoConsecutiveControlNodes.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/NoIdenticalAdjacentConditions.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/RepairTool.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/validation/BTreeRules.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/validation/BTreeValidation.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/validation/Rule.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/entity/Agent.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/entity/Entity.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/entity/EntityStore.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/fsm/State.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/fsm/StateMachine.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/space/EnvironmentSpace.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/space/SpatiallyLocalized.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/space/grid/Cell.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/space/grid/Corner.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/space/grid/Direction.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/space/grid/GridBuilder.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/space/grid/GridEntity.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/space/grid/Orientation.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/space/grid/Point.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/space/grid/SquareGrid.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/space/grid/Token.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/space/grid/TokenHolder.kt" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/resources/logback.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$USER_HOME$/IdeaProjects/btree-evolution">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="btree-evolution" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="btree-evolution" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="btree-evolution" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="formatting" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Enum" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin Object" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$USER_HOME$/IdeaProjects/btree-evolution" />
+  </component>
+  <component name="KotlinCodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2rAwukImvB5brB0HL7jXZBoHwu6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.BTCrossoverSpec (1).executor": "Run",
+    "Gradle.BTCrossoverSpec.executor": "Run",
+    "Gradle.BTDestructiveReparationSpec (1).executor": "Run",
+    "Gradle.BTDestructiveReparationSpec.executor": "Run",
+    "Gradle.BTGenerativeReparationSpec.executor": "Run",
+    "Gradle.BTRandomAdditionSpec (1).executor": "Run",
+    "Gradle.BTRandomAdditionSpec.executor": "Run",
+    "Gradle.BTRandomDeletionSpec.executor": "Run",
+    "Gradle.BTRandomModificationSpec (1).executor": "Run",
+    "Gradle.BTRandomModificationSpec.executor": "Run",
+    "Gradle.BTReparationSpec.executor": "Run",
+    "Gradle.BTTransformationSpec (1).executor": "Run",
+    "Gradle.BTTransformationSpec.executor": "Run",
+    "Gradle.BTValidationSpec.executor": "Run",
+    "Gradle.Build btree-evolution.executor": "Run",
+    "Gradle.GridWorldSpec (1).executor": "Run",
+    "Gradle.GridWorldSpec.executor": "Run",
+    "Gradle.RandomGridGenSpec (1).executor": "Run",
+    "Gradle.RandomGridGenSpec.executor": "Run",
+    "Gradle.StateMachineSpec.executor": "Run",
+    "Gradle.Tests in 'btree-evolution.laboratory.test'.executor": "Run",
+    "Gradle.Tests in 'it.irs.lab.btree.transformation'.executor": "Run",
+    "Gradle.btree-evolution [runMain].executor": "Run",
+    "Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [build].executor": "Run",
+    "Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [check].executor": "Run",
+    "Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [detektMain].executor": "Run",
+    "Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [detekt].executor": "Run",
+    "Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [dokkatooGenerateModuleHtml].executor": "Run",
+    "Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [dokkatooGenerate].executor": "Run",
+    "Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [koverHtmlReport].executor": "Run",
+    "Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [koverLog].executor": "Run",
+    "Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [koverVerify].executor": "Run",
+    "Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [ktlintFormat].executor": "Run",
+    "Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [runGA].executor": "Run",
+    "JUnit.Whole project.executor": "Run",
+    "Kotest.BTGenerativeReparationSpec: repair a ConditionsNotLastChild rule violation by addition (1).executor": "Run",
+    "Kotest.BTGenerativeReparationSpec: repair a ConditionsNotLastChild rule violation by addition.executor": "Debug",
+    "Kotest.BTGenerativeReparationSpec: repair a ControlNodeMustHaveChildren rule violation by addition.executor": "Run",
+    "Kotest.BTRandomAdditionSpec: add a random composite node to the tree (1).executor": "Run",
+    "Kotest.BTRandomAdditionSpec: add a random composite node to the tree.executor": "Run",
+    "Kotest.BTRandomAdditionSpec: add a random leaf node to the tree (1).executor": "Run",
+    "Kotest.BTRandomAdditionSpec: add a random leaf node to the tree (2).executor": "Run",
+    "Kotest.BTRandomAdditionSpec: add a random leaf node to the tree (3).executor": "Run",
+    "Kotest.BTRandomAdditionSpec: add a random leaf node to the tree.executor": "Run",
+    "Kotest.BTRandomDeletionSpec: Testing the random deletion of a node from a behavior tree.executor": "Run",
+    "Kotest.BTRandomDeletionSpec: remove a random composite node from the tree (1).executor": "Debug",
+    "Kotest.BTRandomDeletionSpec: remove a random composite node from the tree (2).executor": "Run",
+    "Kotest.BTRandomDeletionSpec: remove a random composite node from the tree (3).executor": "Run",
+    "Kotest.BTRandomDeletionSpec: remove a random composite node from the tree (4).executor": "Run",
+    "Kotest.BTRandomDeletionSpec: remove a random composite node from the tree.executor": "Run",
+    "Kotest.BTRandomDeletionSpec: remove a random leaf node from the tree (1).executor": "Run",
+    "Kotest.BTRandomDeletionSpec: remove a random leaf node from the tree (2).executor": "Run",
+    "Kotest.BTRandomDeletionSpec: remove a random leaf node from the tree.executor": "Run",
+    "Kotest.BTRandomGenSpec: Testing random generation.executor": "Run",
+    "Kotest.BTRandomModificationSpec: mutate a composite node with a leaf node.executor": "Run",
+    "Kotest.BTRandomModificationSpec: mutate a composite node with another composite node (1).executor": "Run",
+    "Kotest.BTRandomModificationSpec: mutate a composite node with another composite node (2).executor": "Run",
+    "Kotest.BTRandomModificationSpec: mutate a composite node with another composite node (3).executor": "Run",
+    "Kotest.BTRandomModificationSpec: mutate a composite node with another composite node (4).executor": "Run",
+    "Kotest.BTRandomModificationSpec: mutate a composite node with another composite node.executor": "Run",
+    "Kotest.BTRandomModificationSpec: mutate a leaf node with a composite node.executor": "Run",
+    "Kotest.BTRandomModificationSpec: mutate a leaf node with another leaf node.executor": "Run",
+    "Kotest.BTRandomModificationSpec: mutate root node with only another composite node.executor": "Run",
+    "Kotest.BTRandomModificationSpec: mutate the root composite node only with another composite node.executor": "Run",
+    "Kotest.BTRandomModificationSpec: mutate the root leaf node with another tree node (1).executor": "Run",
+    "Kotest.BTRandomModificationSpec: mutate the root leaf node with another tree node.executor": "Run",
+    "Kotest.BTReparationSpec: try to repair the tree up to three times.executor": "Run",
+    "Kotest.BTTransformationSpec: Testing transformations of a behavior tree (1).executor": "Run",
+    "Kotest.BTTransformationSpec: Testing transformations of a behavior tree.executor": "Run",
+    "Kotest.BTTransformationSpec: remove a composite node and its children from the tree.executor": "Run",
+    "Kotest.BTTransformationSpec: remove a composite node from the tree preserving its children.executor": "Run",
+    "Kotest.BTTransformationSpec: remove a composite node from the tree.executor": "Run",
+    "Kotest.BTTransformationSpec: remove a leaf node from the tree.executor": "Run",
+    "Kotest.BTTransformationSpec: swap a composite node with a leaf node (1).executor": "Run",
+    "Kotest.BTTransformationSpec: swap a composite node with a leaf node.executor": "Run",
+    "Kotest.BTTransformationSpec: swap a leaf node with a composite node.executor": "Run",
+    "Kotest.GridWorldSpec: return a set of statistics (1).executor": "Run",
+    "Kotest.GridWorldSpec: return a set of statistics (2).executor": "Run",
+    "Kotest.GridWorldSpec: return a set of statistics (3).executor": "Run",
+    "Kotest.GridWorldSpec: return a set of statistics.executor": "Run",
+    "Kotest.GridWorldSpec: run until end correctly.executor": "Run",
+    "Kotest.RandomGridGenSpec: generate a random grid according to the given parameters (1).executor": "Run",
+    "Kotest.RandomGridGenSpec: generate a random grid according to the given parameters (2).executor": "Run",
+    "Kotest.RandomGridGenSpec: generate a random grid according to the given parameters (3).executor": "Run",
+    "Kotest.RandomGridGenSpec: generate a random grid according to the given parameters.executor": "Run",
+    "Kotest.RandomGridGenSpec: regenerate the grid if no path to a light could be found (1).executor": "Run",
+    "Kotest.RandomGridGenSpec: regenerate the grid if no path to a light could be found (2).executor": "Run",
+    "Kotest.RandomGridGenSpec: regenerate the grid if no path to a light could be found (3).executor": "Run",
+    "Kotest.RandomGridGenSpec: regenerate the grid if no path to a light could be found (4).executor": "Run",
+    "Kotest.RandomGridGenSpec: regenerate the grid if no path to a light could be found.executor": "Run",
+    "Kotlin.ExperimentRunnerKt.executor": "Run",
+    "Kotlin.SKt.executor": "Run",
+    "Kotlin.TestKt.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/var/home/richard/IdeaProjects/btree-evolution/laboratory/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.updates",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "kotlin"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab" />
+      <recent name="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation" />
+      <recent name="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/manipulation/randomization" />
+      <recent name="$USER_HOME$/IdeaProjects/btree-evolution/evolution/src/main/kotlin/it/irs/evolution" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="it.irs.simulation.btree.transformation.randomization" />
+      <recent name="it.irs.lab.btree" />
+      <recent name="it.irs.lab.entity" />
+      <recent name="it.irs.lab.btree.transformation.randomization" />
+      <recent name="it.irs.lab.btree.transformation.reparation" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [ktlintFormat]">
+    <configuration name="StateMachineSpec" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$USER_HOME$/IdeaProjects/btree-evolution" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":laboratory:test" />
+            <option value="--tests" />
+            <option value="&quot;it.irs.lab.fsm.StateMachineSpec&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="Tests in 'btree-evolution.laboratory.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$USER_HOME$/IdeaProjects/btree-evolution" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":laboratory:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="btree-evolution::var:home:richard:IdeaProjects:btree-evolution [detekt]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$USER_HOME$/IdeaProjects/btree-evolution" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="detekt" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="btree-evolution::var:home:richard:IdeaProjects:btree-evolution [koverHtmlReport]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$USER_HOME$/IdeaProjects/btree-evolution" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="koverHtmlReport" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="btree-evolution::var:home:richard:IdeaProjects:btree-evolution [ktlintFormat]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$USER_HOME$/IdeaProjects/btree-evolution" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="ktlintFormat" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [ktlintFormat]" />
+        <item itemvalue="Gradle.Tests in 'btree-evolution.laboratory.test'" />
+        <item itemvalue="Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [detekt]" />
+        <item itemvalue="Gradle.StateMachineSpec" />
+        <item itemvalue="Gradle.btree-evolution::var:home:richard:IdeaProjects:btree-evolution [koverHtmlReport]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c880bd7c-cdc3-4905-be57-cc71eb3dec27" name="Changes" comment="" />
+      <created>1736015412429</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1736015412429</updated>
+      <workItem from="1736015413983" duration="1081000" />
+      <workItem from="1736069102021" duration="22418000" />
+      <workItem from="1736150812166" duration="10035000" />
+      <workItem from="1736175282051" duration="2072000" />
+      <workItem from="1736177606601" duration="806000" />
+      <workItem from="1736178433495" duration="12193000" />
+      <workItem from="1736234572444" duration="33944000" />
+      <workItem from="1736434276285" duration="9718000" />
+      <workItem from="1736498176708" duration="32248000" />
+      <workItem from="1736581067180" duration="32276000" />
+      <workItem from="1736669587124" duration="19715000" />
+      <workItem from="1736694594473" duration="291000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
