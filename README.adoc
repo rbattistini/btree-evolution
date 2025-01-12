@@ -1,0 +1,43 @@
+= Evolution of Behavior Trees with a genetic algorithm
+
+== Experimentation
+
+To run the genetic algorithm:
+
+[source, shell]
+----
+./gradlew runGA
+----
+
+== Documentation
+
+The report, both in HTML and PDF, can be built by issuing the following commands in the `doc/` directory. It will be available in `doc/output/`.
+
+[source, shell]
+----
+gem install
+make doc
+----
+
+The API docs can be built in this way:
+
+[source, shell]
+----
+./gradlew dokkatooGenerate
+----
+
+They will be available under the `build/dokka/` directory.
+
+== Verification
+
+Run the tests and compute the coverage. The report will be available under the `build/kover/` directory.
+
+[source, shell]
+----
+./gradlew koverHtmlReport
+----
+
+[TIP]
+====
+To browse the HTML files, a local server can be run with the command `python -m http.server 8000` in that directory.
+====
