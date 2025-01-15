@@ -12,7 +12,7 @@ class BTreeRandomDeletionTool<E>(
   override val name = "randomDeletion"
 
   override fun transform(btree: BehaviorTree<E>): BehaviorTree<E> {
-    val randomIdx = random.nextInt(1, btree.size)
+    val randomIdx = if (btree.size > 1) random.nextInt(1, btree.size) else 0
     return BehaviorTree(deleteNthNode(btree.root, randomIdx))
   }
 

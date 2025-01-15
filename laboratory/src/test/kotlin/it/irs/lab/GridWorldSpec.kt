@@ -2,11 +2,11 @@ package it.irs.lab
 
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.types.shouldBeTypeOf
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.checkForAndStore
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.moveForward
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnRandomly
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnToAvoidStored
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnToFollowStored
+import it.irs.lab.btree.node.NodeUtils.checkForAndStore
+import it.irs.lab.btree.node.NodeUtils.isNearerLight
+import it.irs.lab.btree.node.NodeUtils.moveForward
+import it.irs.lab.btree.node.NodeUtils.turnRandomly
+import it.irs.lab.btree.node.NodeUtils.turnToAvoidStored
 import it.irs.lab.env.GridWorld
 import it.irs.lab.env.entity.Robot
 import it.irs.lab.fsm.robotState.GoalReached
@@ -18,7 +18,9 @@ import it.irs.simulation.blackboard.Blackboard
 import it.irs.simulation.btree.builder.btree
 import it.irs.simulation.fsm.StateMachine
 import it.irs.simulation.space.grid.Direction
-import it.irs.simulation.space.grid.GridEntity
+import it.irs.simulation.space.grid.GridEntity.Boundary
+import it.irs.simulation.space.grid.GridEntity.Obstacle
+import it.irs.simulation.space.grid.GridEntity.Visited
 import it.irs.simulation.space.grid.Point
 
 class GridWorldSpec :
@@ -27,21 +29,24 @@ class GridWorldSpec :
       val fakeRobotId = "bb8"
       val btree =
         btree {
-          +sel("Navigation") {
-            +seq("FollowGreenLight") {
-              +checkForAndStore(setOf(GridEntity.GreenLight))
-              +turnToFollowStored
-              +moveForward
-            }
-            +seq {
+          +seq {
+            +sel {
+              +isNearerLight
               +sel {
                 +seq {
-                  +checkForAndStore(setOf(GridEntity.Obstacle, GridEntity.Boundary))
+                  +checkForAndStore(setOf(Obstacle, Boundary, Visited))
                   +turnToAvoidStored
                 }
                 +turnRandomly
               }
+            }
+            +sel {
               +moveForward
+              +seq {
+                +checkForAndStore(setOf(Obstacle, Boundary, Visited))
+                +turnToAvoidStored
+                +moveForward
+              }
             }
           }
         }

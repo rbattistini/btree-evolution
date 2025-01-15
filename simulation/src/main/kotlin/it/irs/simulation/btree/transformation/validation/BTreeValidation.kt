@@ -17,7 +17,7 @@ object BTreeValidation {
     tailrec fun validate(stack: List<TreeNode<E>>): Either<Rule, Boolean> {
       when {
         stack.isEmpty() -> {
-          logger.debug { "The tree is valid" }
+          logger.trace { "The tree is valid" }
           return Either.Right(true)
         }
 
@@ -26,7 +26,7 @@ object BTreeValidation {
           val violatedRule = rules.firstOrNull { !it.check(currentNode) }
 
           return if (violatedRule != null) {
-            logger.debug { "Violation of $violatedRule rule found" }
+            logger.trace { "Violation of $violatedRule rule found" }
             Either.Left(violatedRule)
           } else {
             val remainingNodes = stack.drop(1)

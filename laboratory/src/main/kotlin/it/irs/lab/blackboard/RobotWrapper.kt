@@ -39,19 +39,19 @@ object RobotWrapper {
     @JvmName("turnToNullable")
     fun Robot.turnTo(d: Direction?) =
       if (d != null) {
-        logger.debug { "Turned to direction $d" }
+        logger.trace { "Turned to direction $d" }
         copy(bb = bb.write("turnDirection" to d))
       } else {
-        logger.debug { "Could not turn" }
+        logger.trace { "Could not turn" }
         null
       }
 
     fun Robot.moveTo(p: Point?) =
       if (p != null) {
-        logger.debug { "Moved to position $p" }
+        logger.trace { "Moved to position $p" }
         copy(bb = bb.write("position" to p))
       } else {
-        logger.debug { "Could not move" }
+        logger.trace { "Could not move" }
         null
       }
 
@@ -71,7 +71,7 @@ object RobotWrapper {
       val set = bb.read(pName) as Set<*>?
       val pointSet = set?.filterIsInstance<Point>()?.toSet()
 
-      logger.debug { "Updated point $p" }
+      logger.trace { "Updated point $p" }
       val newBb =
         if (pointSet != null) {
           bb.write(pName to pointSet.plus(p))
@@ -80,7 +80,7 @@ object RobotWrapper {
         }
       copy(bb = newBb)
     } else {
-      logger.debug { "Could not store the point" }
+      logger.trace { "Could not store the point" }
       null
     }
 
@@ -88,10 +88,10 @@ object RobotWrapper {
       pName: String,
       p: Set<Point>?,
     ) = if (!p.isNullOrEmpty()) {
-      logger.debug { "Stored points $p" }
+      logger.trace { "Stored points $p" }
       copy(bb = bb.write(pName to p))
     } else {
-      logger.debug { "Could not store points" }
+      logger.trace { "Could not store points" }
       null
     }
   }

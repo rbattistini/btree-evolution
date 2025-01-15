@@ -16,13 +16,12 @@ import kotlin.random.Random
 class RandomGridGenerator(
   private val dimensions: Int,
   private val numObstacles: Int,
-  private val random: Random,
 ) {
-  fun randomGrid(): SquareGrid {
+  fun randomGrid(random: Random): SquareGrid {
     val cells = mutableSetOf<Cell>()
     val tokens = mutableSetOf<Token>()
 
-    val lightCorner = Corner.random()
+    val lightCorner = Corner.random(random)
     val lightPosition = lightCorner.point(dimensions)
     tokens.add(Light(lightPosition, lightColorToFollow))
 

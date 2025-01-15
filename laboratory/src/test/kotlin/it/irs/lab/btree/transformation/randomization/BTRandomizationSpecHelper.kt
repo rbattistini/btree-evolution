@@ -2,15 +2,15 @@ package it.irs.lab.btree.transformation.randomization
 
 import arrow.core.Either
 import io.kotest.matchers.shouldBe
-import it.irs.lab.ExperimentConfig.DEFAULT_DIMENSION
 import it.irs.lab.btree.GridWorldBTree
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.moveForward
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnRandomly
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnToAvoidStored
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnToFollowStored
-import it.irs.lab.btree.node.CheckFor
-import it.irs.lab.btree.node.TurnTo
+import it.irs.lab.btree.node.CheckNodes.CheckFor
+import it.irs.lab.btree.node.NodeUtils.moveForward
+import it.irs.lab.btree.node.NodeUtils.turnRandomly
+import it.irs.lab.btree.node.NodeUtils.turnToAvoidStored
+import it.irs.lab.btree.node.NodeUtils.turnToFollowStored
+import it.irs.lab.btree.node.TurnNodes.TurnTo
 import it.irs.lab.env.GridWorld
+import it.irs.lab.experiment.config.DefaultConfig.DEFAULT_DIMENSION
 import it.irs.simulation.btree.node.leaf.LeafNodeRegistry
 import it.irs.simulation.btree.transformation.randomization.UnaryRandomTool
 import it.irs.simulation.space.grid.GridEntity
@@ -32,12 +32,12 @@ object BTRandomizationSpecHelper {
           } else {
             put(
               "checkForGreenLightAhead${orientation.name}",
-              CheckFor(GridEntity.GreenLight, orientation, DEFAULT_DIMENSION),
+              CheckFor(setOf(GridEntity.GreenLight), orientation, DEFAULT_DIMENSION),
             )
           }
 
           GridEntity.entries.forEach { entity ->
-            val node = CheckFor(entity, orientation, DEFAULT_DIMENSION)
+            val node = CheckFor(setOf(entity), orientation, DEFAULT_DIMENSION)
             put(node.name, node)
           }
         }

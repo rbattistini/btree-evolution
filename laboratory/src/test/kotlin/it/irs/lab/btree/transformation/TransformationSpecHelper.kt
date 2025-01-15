@@ -2,9 +2,9 @@ package it.irs.lab.btree.transformation
 
 import arrow.core.Either
 import io.kotest.matchers.shouldBe
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.of
 import it.irs.lab.entity.RobotSpecHelper.DEFAULT_TEST_SEED
 import it.irs.lab.env.GridWorld
+import it.irs.lab.genetic.Exp1GenePool.ofExp1
 import it.irs.simulation.Environment
 import it.irs.simulation.btree.BehaviorTree
 import it.irs.simulation.btree.node.leaf.ActionNode
@@ -32,7 +32,7 @@ object TransformationSpecHelper {
 
   private val nodeFactory = {
     LeafNodeRegistry
-      .of()
+      .ofExp1(Random(DEFAULT_TEST_SEED))
       .nodes
       .filter { it.value is ActionNode<*> }
       .values

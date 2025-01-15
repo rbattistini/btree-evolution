@@ -1,6 +1,5 @@
 package it.irs.lab.env
 
-import it.irs.lab.ExperimentConfig.DEFAULT_SEED
 import it.irs.lab.blackboard.GridWorldWrapper.activeRobotId
 import it.irs.lab.env.cell.Clear
 import it.irs.lab.env.cell.Obstacle
@@ -14,7 +13,6 @@ import it.irs.simulation.space.grid.GridBuilder.Companion.grid
 import it.irs.simulation.space.grid.Point
 import it.irs.simulation.space.grid.SquareGrid
 import java.awt.Color
-import kotlin.random.Random
 
 class GridWorld(
   override val bb: Blackboard,
@@ -26,7 +24,7 @@ class GridWorld(
 
   companion object {
     val lightColorToFollow: Color = Color.GREEN
-    val random = Random(DEFAULT_SEED)
+    val lightColorToAvoid: Color = Color.RED
 
     val defaultGrid =
       grid(

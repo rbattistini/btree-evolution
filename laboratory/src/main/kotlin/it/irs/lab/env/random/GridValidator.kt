@@ -2,22 +2,23 @@ package it.irs.lab.env.random
 
 import arrow.core.Either
 import io.github.oshai.kotlinlogging.KLogger
-import io.github.oshai.kotlinlogging.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging.logger
 import it.irs.lab.env.GridExtensions.lightCells
 import it.irs.lab.env.GridExtensions.obstacles
 import it.irs.lab.env.GridExtensions.startPositions
 import it.irs.lab.env.GridView.toAscii
+import it.irs.lab.env.GridWorld.Companion.lightColorToAvoid
+import it.irs.lab.env.GridWorld.Companion.lightColorToFollow
+import it.irs.lab.experiment.config.DefaultConfig.DEFAULT_NEIGHBOURS_RADIUS
+import it.irs.lab.experiment.config.DefaultConfig.MAX_VALIDATION_ATTEMPTS
 import it.irs.simulation.space.grid.Point
 import it.irs.simulation.space.grid.SquareGrid
-import java.awt.Color
+import kotlin.random.Random
 
-object GridValidator {
-  private val logger: KLogger = KotlinLogging.logger {}
-
-  private const val START_VALIDATION_ATTEMPT = 0
-  private const val MAX_VALIDATION_ATTEMPTS = 3
-  private const val DEFAULT_NEIGHBOURS_RADIUS = 1
-
+class GridValidator(
+  val maxValidationAttempts: Int = MAX_VALIDATION_ATTEMPTS,
+  val neighbourRadius: Int = DEFAULT_NEIGHBOURS_RADIUS,
+) {
   private tailrec fun containsPathToLight(
     currentList: List<Point>,
     lightPositions: Set<Point>,
@@ -32,10 +33,10 @@ object GridValidator {
         val updatedVisited = visited + current
         val neighbors =
           current
-            .neighbors(DEFAULT_NEIGHBOURS_RADIUS)
+            .neighbors(neighbourRadius)
             .filter { neighbor ->
               squareGrid.contains(neighbor) &&
-                neighbor !in squareGrid.lightCells(Color.RED) &&
+                neighbor !in squareGrid.lightCells(lightColorToAvoid) &&
                 neighbor !in squareGrid.obstacles() &&
                 neighbor !in visited
             }
@@ -50,13 +51,17 @@ object GridValidator {
 
   tailrec fun genValidGrid(
     randomGridGenerator: RandomGridGenerator,
+    random: Random,
     attempt: Int = START_VALIDATION_ATTEMPT,
-    maxAttempts: Int = MAX_VALIDATION_ATTEMPTS,
+    maxAttempts: Int = maxValidationAttempts,
   ): Either<String, SquareGrid> {
-    if (attempt > maxAttempts) return Either.Left("No valid grid found after $attempt attempts")
+    if (attempt > maxAttempts) {
+      logger.warn { "Defaulting to standard grid" }
+      return Either.Left("No valid grid found after $attempt attempts")
+    }
 
-    val randomGrid = randomGridGenerator.randomGrid()
-    val targetPoints = randomGrid.lightCells(Color.GREEN)
+    val randomGrid = randomGridGenerator.randomGrid(random)
+    val targetPoints = randomGrid.lightCells(lightColorToFollow)
     val pathExists =
       containsPathToLight(
         randomGrid.startPositions().toList(),
@@ -68,9 +73,14 @@ object GridValidator {
     return if (pathExists) {
       Either.Right(randomGrid)
     } else {
-      logger.info { "\n${randomGrid.toAscii()}" }
-      logger.info { "Attempt $attempt failed. Retrying..." }
-      genValidGrid(randomGridGenerator, attempt + 1, maxAttempts)
+      logger.trace { "\n${randomGrid.toAscii()}" }
+      logger.trace { "Attempt $attempt failed. Retrying..." }
+      genValidGrid(randomGridGenerator, random, attempt + 1, maxAttempts)
     }
+  }
+
+  companion object {
+    private val logger: KLogger = logger {}
+    const val START_VALIDATION_ATTEMPT = 0
   }
 }

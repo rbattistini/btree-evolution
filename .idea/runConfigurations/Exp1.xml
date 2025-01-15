@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Exp1" type="JetRunConfigurationType">
+    <option name="MAIN_CLASS_NAME" value="it.irs.lab.ExperimentRunnerKt" />
+    <module name="btree-evolution.laboratory.main" />
+    <option name="PROGRAM_PARAMETERS" value="config/exp3.json" />
+    <shortenClasspath name="NONE" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/laboratory" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

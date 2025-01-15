@@ -14,7 +14,7 @@ interface State<E> where E : Environment<*> {
   val env: E
 
   fun onUpdate(env: E): State<E> {
-    logger.debug { "Updating $name State" }
+    logger.trace { "Updating $name State" }
     return this
   }
 }

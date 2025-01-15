@@ -6,9 +6,11 @@ plugins {
   alias(libs.plugins.ktlint)
   alias(libs.plugins.detekt)
   alias(libs.plugins.kover)
+  alias(libs.plugins.kotlinx)
 }
 
 dependencies {
+  implementation(libs.kotlinx.serialization.json)
   implementation(libs.jenetics)
   implementation(libs.jenetics.prngine)
 
@@ -27,19 +29,8 @@ dependencies {
   testImplementation(libs.kotest.property)
 }
 
-kotlin {
-  compilerOptions {
-    allWarningsAsErrors = true
-    freeCompilerArgs.addAll(
-      listOf(
-        "-opt-in=kotlin.RequiresOptIn",
-      ),
-    )
-  }
-}
-
 tasks.register<JavaExec>("runGA") {
-  description = "Run main class."
+  description = "Run the main GA class."
   group = "custom"
 
   standardOutput = System.out
@@ -47,21 +38,24 @@ tasks.register<JavaExec>("runGA") {
   mainClass = "${project.group}.lab.ExperimentRunnerKt"
 }
 
-tasks.jar {
-  manifest.attributes["Main-Class"] = "it.irs.MainKt"
-  val dependencies =
-    configurations
-      .runtimeClasspath
-      .get()
-      .map(::zipTree)
-  from(dependencies)
-  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+tasks.register<JavaExec>("runRandomSelectorGA") {
+  description = "Run the main GA class with a Montecarlo selector."
+  group = "custom"
+
+  standardOutput = System.out
+  classpath = sourceSets.main.get().runtimeClasspath
+  mainClass = "${project.group}.lab.RandomSelectionBaselineKt"
+}
+
+tasks.register<JavaExec>("compareWithBaseline") {
+  description = "Run the class to compare with the baseline."
+  group = "custom"
+
+  standardOutput = System.out
+  classpath = sourceSets.main.get().runtimeClasspath
+  mainClass = "${project.group}.lab.HandcraftedBaselineKt"
 }
 
 tasks.test {
   useJUnitPlatform()
-}
-
-kotlin {
-  jvmToolchain(21)
 }

@@ -2,9 +2,9 @@ package it.irs.lab.btree.transformation.randomization
 
 import arrow.core.Either
 import io.kotest.core.spec.style.ShouldSpec
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.checkForAndStore
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.moveForward
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnToFollowStored
+import it.irs.lab.btree.node.NodeUtils.checkForAndStore
+import it.irs.lab.btree.node.NodeUtils.moveForward
+import it.irs.lab.btree.node.NodeUtils.turnToFollowStored
 import it.irs.lab.btree.transformation.randomization.BTRandomizationSpecHelper.transform
 import it.irs.lab.env.GridWorld
 import it.irs.simulation.btree.builder.btree

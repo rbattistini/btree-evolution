@@ -5,10 +5,9 @@ import it.irs.simulation.SimulationUtils.DEFAULT_SEED
 import it.irs.simulation.btree.BehaviorTree
 import it.irs.simulation.btree.node.TreeNode
 import it.irs.simulation.btree.node.branch.CompositeNode
-import it.irs.simulation.btree.node.branch.Selector
-import it.irs.simulation.btree.node.branch.Sequence
-import it.irs.simulation.btree.node.leaf.LeafNode
 import it.irs.simulation.btree.node.leaf.LeafNodeRegistry
+import it.irs.simulation.btree.transformation.randomization.RandomizationUtils.randomCompositeNode
+import it.irs.simulation.btree.transformation.randomization.RandomizationUtils.randomLeafNode
 import kotlin.random.Random
 
 class BTreeRandomGenerator<E>(
@@ -22,7 +21,7 @@ class BTreeRandomGenerator<E>(
 
   private fun generateRandomTree(currentDepth: Int = DEFAULT_START_DEPTH): TreeNode<E> {
     if (currentDepth == maxDepth) {
-      return randomLeafNode()
+      return randomLeafNode(registry, random)
     }
 
     return randomCompositeNodeWithChildren(
@@ -38,20 +37,6 @@ class BTreeRandomGenerator<E>(
         generateRandomTree(currentDepth + 1)
       }
     return compositeNode.withChildren(children)
-  }
-
-  private fun randomLeafNode(): LeafNode<E> {
-    val randomKey = registry.nodes.keys.random(random)
-    return registry.nodes[randomKey] as LeafNode<E>
-  }
-
-  private fun randomCompositeNode(random: Random): CompositeNode<E> {
-    val isSequence = random.nextBoolean()
-    return if (isSequence) {
-      Sequence()
-    } else {
-      Selector()
-    }
   }
 
   companion object {

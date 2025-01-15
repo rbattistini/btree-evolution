@@ -18,7 +18,10 @@ class BTreeReparation<E>(
     btree: BehaviorTree<E>,
     attemptsLeft: Int,
   ): BehaviorTree<E> {
-    if (attemptsLeft <= 0) return btree
+    if (attemptsLeft <= 0) {
+      logger.warn { "Could not fully repair the tree" }
+      return btree
+    }
 
     return when (val r = btree.isValid(rules)) {
       is Either.Left ->
@@ -41,7 +44,7 @@ class BTreeReparation<E>(
     ): Either<String, BehaviorTree<E>> where E : Environment<*> {
       val tool = toolset[rule]
       return if (tool != null) {
-        logger.info { "Trying to repair $this due to $rule violation" }
+        logger.debug { "Trying to repair $this due to $rule violation" }
         when (tool) {
           is GenerativeRepairTool -> Either.Right(tool.repair(this, rule, nodeFactory))
           is DestructiveRepairTool -> Either.Right(tool.repair(this, rule))

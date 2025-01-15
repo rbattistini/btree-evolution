@@ -11,9 +11,9 @@ data class Idle(
     val updatedEnv =
       env
         .let(::tickActiveRobot)
+        .let(::writePreviousPosition)
         .let(::checkIfMoving)
         .let(::checkIfRevisiting)
-        .let(::checkIfColliding)
 
     val activeRobot = updatedEnv.activeRobot()
     val finalEnv = updatedEnv.updateActiveRobot(activeRobot.addIdleStep()) ?: updatedEnv

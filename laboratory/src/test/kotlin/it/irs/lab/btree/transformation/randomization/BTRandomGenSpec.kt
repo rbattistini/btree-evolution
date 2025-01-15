@@ -2,9 +2,10 @@ package it.irs.lab.btree.transformation.randomization
 
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.checkFor
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnRandomly
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnTo
+import it.irs.lab.btree.node.NodeUtils.checkFor
+import it.irs.lab.btree.node.NodeUtils.turnRandomly
+import it.irs.lab.btree.node.NodeUtils.turnTo
+import it.irs.lab.btree.node.NodeUtils.turnToFollowStored
 import it.irs.lab.btree.transformation.randomization.BTRandomizationSpecHelper.registry
 import it.irs.simulation.btree.builder.BTreeRandomGenerator
 import it.irs.simulation.btree.builder.btree
@@ -23,28 +24,29 @@ class BTRandomGenSpec :
             +sel {
               +seq {
                 +sel {
-                  +checkFor(GridEntity.Obstacle, Orientation.Forward)
-                  +checkFor(GridEntity.Boundary, Orientation.Left)
+                  +checkFor(GridEntity.Visited, Orientation.Forward)
+                  +turnToFollowStored
                 }
-                +sel {
-                  +checkFor(GridEntity.GreenLight, Orientation.Forward)
-                  +turnRandomly
-                }
-                +sel {
-                  +checkFor(GridEntity.Boundary, Orientation.Left)
+                +seq {
                   +turnTo(Orientation.Right)
-                  +checkFor(GridEntity.Boundary, Orientation.Forward)
+                  +turnTo(Orientation.Left)
+                  +checkFor(GridEntity.GreenLight, Orientation.Left)
+                }
+                +sel {
+                  +checkFor(GridEntity.Obstacle, Orientation.Right)
+                  +checkFor(GridEntity.Visited, Orientation.Left)
                 }
               }
               +sel {
                 +sel {
-                  +checkFor(GridEntity.RedLight, Orientation.Forward)
-                  +checkFor(GridEntity.Boundary, Orientation.Right)
-                  +checkFor(GridEntity.Obstacle, Orientation.Right)
+                  +turnTo(Orientation.Left)
+                  +turnTo(Orientation.Right)
+                  +checkFor(GridEntity.RedLight, Orientation.Left)
                 }
                 +sel {
-                  +checkFor(GridEntity.RedLight, Orientation.Forward)
-                  +checkFor(GridEntity.GreenLight, Orientation.Right)
+                  +turnTo(Orientation.Left)
+                  +turnRandomly
+                  +checkFor(GridEntity.GreenLight, Orientation.Forward)
                 }
               }
             }

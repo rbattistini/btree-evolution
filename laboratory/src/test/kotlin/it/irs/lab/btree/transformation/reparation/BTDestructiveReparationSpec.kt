@@ -2,8 +2,8 @@ package it.irs.lab.btree.transformation.reparation
 
 import arrow.core.Either
 import io.kotest.core.spec.style.ShouldSpec
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.checkForAndStore
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.moveForward
+import it.irs.lab.btree.node.NodeUtils.checkForAndStore
+import it.irs.lab.btree.node.NodeUtils.moveForward
 import it.irs.lab.btree.transformation.TransformationSpecHelper.repair
 import it.irs.simulation.btree.builder.btree
 import it.irs.simulation.space.grid.GridEntity

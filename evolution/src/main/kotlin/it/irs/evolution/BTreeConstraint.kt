@@ -30,7 +30,7 @@ class BTreeConstraint<E>(
         .gene()
         .allele()
         .isValid(validationRules)
-    if (r is Either.Left) logger.debug { r.value.toString() }
+    if (r is Either.Left) logger.trace { r.value.toString() }
     return r !is Either.Left
   }
 
@@ -38,14 +38,15 @@ class BTreeConstraint<E>(
     individual: Phenotype<BTreeGene<E>, Double>,
     generation: Long,
   ): Phenotype<BTreeGene<E>, Double> {
-    val gene = individual.genotype().gene()
+    val chromosome = individual.genotype().chromosome()
+    val gene = chromosome.gene()
     val btree = gene.allele()
-    logger.debug { "Repairing the tree... " }
-    logger.debug { "Before: \n${btree.string}" }
+    logger.trace { "Repairing the tree... " }
+    logger.trace { "Before: \n${btree.string}" }
     val repairedBT = conRepair.repairWithRetry(btree, defaultAttempts)
-    logger.debug { "After: \n${repairedBT.string}" }
+    logger.trace { "After: \n${repairedBT.string}" }
     return Phenotype.of(
-      Genotype.of(BTreeChromosome(ISeq.of(gene.newInstance(repairedBT)))),
+      Genotype.of(chromosome.newInstance(ISeq.of(gene.newInstance(repairedBT)))),
       generation,
     )
   }

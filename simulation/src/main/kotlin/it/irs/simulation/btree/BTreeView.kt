@@ -11,7 +11,20 @@ object BTreeView {
   ): String where E : Environment<*> {
     val connector = if (isLast) "└── " else "├── "
     val childPrefix = if (isLast) "    " else "│   "
-    val builder = StringBuilder("$prefix$connector$name\n")
+
+    val builder =
+      if (this is CompositeNode) {
+        val kind = this.javaClass.simpleName
+        val (nameToDisplay, annotation) =
+          if (name.isEmpty() || name == kind) {
+            Pair(this.javaClass.simpleName, "")
+          } else {
+            Pair(name, " #$kind")
+          }
+        StringBuilder("$prefix$connector$nameToDisplay$annotation\n")
+      } else {
+        StringBuilder("$prefix$connector$name\n")
+      }
 
     if (this is CompositeNode<E>) {
       children.forEachIndexed { index, child ->

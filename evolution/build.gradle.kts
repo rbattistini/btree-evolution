@@ -20,18 +20,3 @@ dependencies {
   implementation(libs.logback)
   implementation(libs.slf4jOverLogback)
 }
-
-kotlin {
-  compilerOptions {
-    allWarningsAsErrors = true
-    freeCompilerArgs.addAll(
-      listOf(
-        "-opt-in=kotlin.RequiresOptIn",
-      ),
-    )
-  }
-}
-
-kotlin {
-  jvmToolchain(21)
-}

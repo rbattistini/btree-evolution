@@ -24,10 +24,10 @@ class BTreeMutator<E>(
   ): BTreeGene<E> {
     val mutator = mutations[random.nextInt(mutations.size)]
     val tree = gene.allele()
-    logger.debug { "Mutator: $mutator" }
-    logger.debug { "Before: \n${tree.string}" }
+    logger.trace { "Mutator: $mutator" }
+    logger.trace { "Before: \n${tree.string}" }
     val mutatedGene = mutator.transform(tree)
-    logger.debug { "After: \n${mutatedGene.string}" }
+    logger.trace { "After: \n${mutatedGene.string}" }
     return gene.newInstance(mutatedGene)
   }
 }

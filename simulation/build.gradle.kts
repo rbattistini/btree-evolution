@@ -19,24 +19,4 @@ dependencies {
   testImplementation(libs.kotest.runner)
   testImplementation(libs.kotest.assertions)
   testImplementation(libs.kotest.property)
-  testImplementation(libs.mockk)
-}
-
-kotlin {
-  compilerOptions {
-    allWarningsAsErrors = true
-    freeCompilerArgs.addAll(
-      listOf(
-        "-opt-in=kotlin.RequiresOptIn",
-      ),
-    )
-  }
-}
-
-tasks.test {
-  useJUnitPlatform()
-}
-
-kotlin {
-  jvmToolchain(21)
 }

@@ -3,20 +3,18 @@ package it.irs.lab.btree.transformation.reparation
 import arrow.core.Either
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.checkFor
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.checkForAndStore
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.moveForward
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.moveToDir
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnTo
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnToAvoidStored
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnToFollowStored
+import it.irs.lab.btree.node.NodeUtils.checkFor
+import it.irs.lab.btree.node.NodeUtils.checkForAndStore
+import it.irs.lab.btree.node.NodeUtils.moveForward
+import it.irs.lab.btree.node.NodeUtils.turnTo
+import it.irs.lab.btree.node.NodeUtils.turnToAvoidStored
+import it.irs.lab.btree.node.NodeUtils.turnToFollowStored
 import it.irs.lab.btree.transformation.TransformationSpecHelper.TEST_REPAIR_ATTEMPTS
 import it.irs.lab.btree.transformation.TransformationSpecHelper.conRepair
 import it.irs.lab.btree.transformation.TransformationSpecHelper.repair
 import it.irs.lab.btree.transformation.TransformationSpecHelper.rules
 import it.irs.simulation.btree.builder.btree
 import it.irs.simulation.btree.transformation.validation.BTreeValidation.isValid
-import it.irs.simulation.space.grid.Direction
 import it.irs.simulation.space.grid.GridEntity
 import it.irs.simulation.space.grid.Orientation
 import kotlin.test.DefaultAsserter.fail
@@ -51,7 +49,7 @@ class BTReparationSpec :
         repair(btree, Either.Right(btree))
       }
 
-      should("try to repair the tree up to three times") {
+      should("try to repair the tree up to three times 1") {
         val brokenBt =
           btree {
             +sel {
@@ -74,7 +72,7 @@ class BTReparationSpec :
         val expectedRepairedBt =
           btree {
             +sel {
-              +seq { +moveToDir(Direction.West) }
+              +seq { +turnToFollowStored }
               +seq {
                 +moveForward
                 +turnToAvoidStored
@@ -85,7 +83,7 @@ class BTReparationSpec :
                     GridEntity.Boundary,
                   ),
                 )
-                +moveToDir(Direction.West)
+                +turnToFollowStored
               }
               +moveForward
             }
@@ -102,7 +100,7 @@ class BTReparationSpec :
         }
       }
 
-      should("try to repair the tree up to three times") {
+      should("try to repair the tree up to three times 2") {
         val brokenBt =
           btree {
             +sel {

@@ -1,31 +1,30 @@
 package it.irs.lab.sim
 
-import it.irs.lab.ExperimentConfig.DEFAULT_VIRTUAL_TIME
-import it.irs.lab.ExperimentConfig.DELTA_TIME
-import it.irs.lab.ExperimentConfig.MAX_SIM_STEPS
 import it.irs.lab.blackboard.RobotWrapper.RobotState.position
 import it.irs.lab.blackboard.RobotWrapper.RobotStatistics.collisionSteps
-import it.irs.lab.blackboard.RobotWrapper.RobotStatistics.idleSteps
 import it.irs.lab.blackboard.RobotWrapper.RobotStatistics.revisitingSteps
 import it.irs.lab.env.GridExtensions.lightCells
 import it.irs.lab.env.GridExtensions.startPositions
 import it.irs.lab.env.GridView.toAscii
 import it.irs.lab.env.GridWorld
 import it.irs.lab.env.GridWorld.Companion.lightColorToFollow
+import it.irs.lab.experiment.config.DefaultConfig.DELTA_TIME
+import it.irs.lab.experiment.config.DefaultConfig.VIRTUAL_TIME
 import it.irs.lab.fsm.robotState.GoalReached
 import it.irs.simulation.Simulation
 import it.irs.simulation.fsm.StateMachine
 
 data class GridWorldSim(
   override val fsm: StateMachine<GridWorld>,
-  override val virtualTime: Long = DEFAULT_VIRTUAL_TIME,
-  val maxSteps: Int = MAX_SIM_STEPS,
+  override val virtualTime: Long = VIRTUAL_TIME,
+  val deltaTime: Int = DELTA_TIME,
+  val maxSteps: Int,
   val logResult: Boolean = false,
 ) : Simulation<GridWorld> {
   override fun tick(env: GridWorld): Simulation<GridWorld> =
     copy(
       fsm = fsm.tick(env),
-      virtualTime = virtualTime + DELTA_TIME,
+      virtualTime = virtualTime + deltaTime,
     )
 
   override fun isTerminated(): Boolean = virtualTime >= maxSteps || fsm.currentState is GoalReached
@@ -46,7 +45,6 @@ data class GridWorldSim(
 
   override fun stepStatistics(env: GridWorld) {
     if (logResult) {
-//      logResultAsImage()
       logResultAsAscii(env)
     }
   }
@@ -59,11 +57,9 @@ data class GridWorldSim(
     return GridWorldSimStatistics(
       initialDistanceToLight = computeInitialDistanceToLight(env),
       finalDistanceToLight = computeFinalDistanceToLight(env),
-      lightReached = fsm.currentState is GoalReached,
       collisionSteps = robot.collisionSteps() ?: defaultSteps,
-      idleSteps = robot.idleSteps() ?: defaultSteps,
-      revisitedCellSteps = robot.revisitingSteps() ?: defaultSteps,
-      totalSteps = virtualTime,
+      backtrackingSteps = robot.revisitingSteps() ?: defaultSteps,
+      totalSteps = virtualTime.toInt(),
       treeSize = robot.btree.size,
     )
   }

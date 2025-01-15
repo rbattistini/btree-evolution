@@ -6,24 +6,33 @@ import it.irs.lab.blackboard.RobotWrapper.RobotMovement.turnTo
 import it.irs.lab.btree.GridWorldBTree
 import it.irs.lab.env.GridExtensions.startPositions
 import it.irs.lab.env.GridWorld
-import it.irs.lab.env.GridWorld.Companion.random
 import it.irs.lab.env.entity.Robot
+import it.irs.lab.env.random.GridValidator
+import it.irs.lab.env.random.RandomGridGenerator
 import it.irs.simulation.blackboard.Blackboard
 import it.irs.simulation.space.grid.Direction
+import kotlin.random.Random
 
 object SimRunner {
-  fun getEnv(btree: GridWorldBTree): GridWorld {
+  fun getEnv(
+    btree: GridWorldBTree,
+    random: Random,
+    dimensions: Int,
+    numObstacles: Int,
+    maxValidationAttempts: Int,
+    neighbourRadius: Int,
+  ): GridWorld {
     val fakeRobotId = "bb8"
-//    val gridGenerator =
-//      RandomGridGenerator(
-//        DEFAULT_DIMENSION,
-//        DEFAULT_NUM_OBSTACLES,
-//        random,
-//      )
-// GridValidator.genValidGrid(gridGenerator).getOrNull() ?:
-    val randomGrid = GridWorld.defaultGrid
-    val startPosition = randomGrid.startPositions().random(random)
+    val gridGenerator =
+      RandomGridGenerator(
+        dimensions,
+        numObstacles,
+      )
 
+    val gridValidator = GridValidator(maxValidationAttempts, neighbourRadius)
+    val randomGrid =
+      gridValidator.genValidGrid(gridGenerator, random).getOrNull() ?: GridWorld.defaultGrid
+    val startPosition = randomGrid.startPositions().random(random)
     val randomDirection = Direction.entries.random(random)
     val robot =
       Robot(btree)
@@ -35,12 +44,10 @@ object SimRunner {
         .create()
         .writeActiveRobotId(fakeRobotId)
 
-    val fakeEnv =
-      GridWorld(
-        bb = bb,
-        entities = mapOf(fakeRobotId to robot),
-        space = randomGrid,
-      )
-    return fakeEnv
+    return GridWorld(
+      bb = bb,
+      entities = mapOf(fakeRobotId to robot),
+      space = randomGrid,
+    )
   }
 }

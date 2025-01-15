@@ -13,7 +13,7 @@ data class Blackboard(
   private val logger = KotlinLogging.logger {}
 
   fun write(entry: Pair<String, Any?>): Blackboard {
-    logger.debug { "Write to blackboard: [${entry.first}] -> ${entry.second}" }
+    logger.trace { "Write to blackboard: [${entry.first}] -> ${entry.second}" }
     return copy(board = board.plus(entry))
   }
 
@@ -22,9 +22,9 @@ data class Blackboard(
   fun read(key: String): Any? {
     val value = board[key]
     if (value != null) {
-      logger.debug { "Read from blackboard: [$key] -> $value" }
+      logger.trace { "Read from blackboard: [$key] -> $value" }
     } else {
-      logger.debug { "No entry found for key: $key" }
+      logger.trace { "No entry found for key: $key" }
     }
     return value
   }
@@ -35,9 +35,9 @@ data class Blackboard(
 
   fun dumpFiltered(filterPredicate: (Map.Entry<String, Any?>) -> Boolean = { true }) {
     if (board.isEmpty()) {
-      logger.debug { "The blackboard is empty." }
+      logger.trace { "The blackboard is empty." }
     } else {
-      logger.debug { "Current Blackboard Entries:" }
+      logger.trace { "Current Blackboard Entries:" }
       board.filter(filterPredicate).forEach { (key, value) ->
         println("[$key] -> $value")
       }

@@ -11,9 +11,9 @@ data class Moving(
     val updatedEnv =
       env
         .let(::tickActiveRobot)
+        .let(::writePreviousPosition)
         .let(::checkIfMoving)
         .let(::checkIfRevisiting)
-        .let(::checkIfColliding)
 
     val activeRobot = updatedEnv.activeRobot()
 

@@ -3,10 +3,10 @@ package it.irs.lab.btree.transformation
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import it.irs.lab.btree.GridWorldBTree
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.checkForAndStore
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.moveForward
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnRandomly
-import it.irs.lab.btree.GridWorldLeafNodeRegistry.turnToFollowStored
+import it.irs.lab.btree.node.NodeUtils.checkForAndStore
+import it.irs.lab.btree.node.NodeUtils.moveForward
+import it.irs.lab.btree.node.NodeUtils.turnRandomly
+import it.irs.lab.btree.node.NodeUtils.turnToFollowStored
 import it.irs.simulation.btree.BehaviorTree
 import it.irs.simulation.btree.builder.btree
 import it.irs.simulation.btree.node.branch.Selector

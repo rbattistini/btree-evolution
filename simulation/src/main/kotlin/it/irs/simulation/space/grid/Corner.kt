@@ -1,6 +1,5 @@
 package it.irs.simulation.space.grid
 
-import it.irs.simulation.SimulationUtils.DEFAULT_SEED
 import kotlin.random.Random
 
 enum class Corner(
@@ -24,7 +23,7 @@ enum class Corner(
     fun allCorners(dimension: Int): Map<Corner, Point> =
       entries.associateWith { it.point(dimension) }
 
-    fun random(random: Random = Random(DEFAULT_SEED)): Corner {
+    fun random(random: Random): Corner {
       val corner = entries.toTypedArray().random(random)
       return corner
     }
