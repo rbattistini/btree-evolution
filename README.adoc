@@ -58,12 +58,14 @@ In particular:
 
 == Verification
 
-Run the tests and compute the coverage. The report will be available under the `build/reports/kover/html/` directory.
+To run the tests and compute the coverage:
 
 [source, shell]
 ----
 ./gradlew koverHtmlReport
 ----
+
+The report will be available under the `build/reports/kover/html/` directory.
 
 [TIP]
 ====
