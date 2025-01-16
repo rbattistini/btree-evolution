@@ -6,7 +6,6 @@ To run the genetic algorithm with a specific config file:
 
 [source, shell]
 ----
-cd laboratory
  ./gradlew runGA --args="config/exp1.json"
 ----
 
@@ -16,8 +15,14 @@ To run the genetic algorithm with a Montecarlo selector, to define a baseline, r
 
 [source, shell]
 ----
-cd laboratory
  ./gradlew runRandomSelectorGA --args="config/exp1.json"
+----
+
+To run the genetic algorithm over a set of parameters defined in the `GridSearchRunner` class, run:
+
+[source, shell]
+----
+ ./gradlew runGAWithGridSearch --args="config/base.json"
 ----
 
 To compare a set of behavior trees over multiple configurations of the test environment

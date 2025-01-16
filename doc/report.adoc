@@ -252,7 +252,15 @@ Il compito del robot è di identificare il percorso ottimale, in presenza di vin
 
 Ciascun individuo della popolazione contiene un albero ottenuto tramite generazione casuale.
 I nodi impiegati per la generazione degli alberi, la mutazione e la riparazione sono scelti a partire dal registro di nodi foglia impiegato per eseguire l'applicazione.
-I nodi disponibili per la sperimentazione sono i seguenti:
+I nodi disponibili per la sperimentazione fanno parte di due gruppi.
+
+I nodi del primo gruppo sono:
+
+
+- `isLightNearer`
+- `moveForward`
+
+I nodi del secondo gruppo sono:
 
 - `checkFor{Goal,Obstacle,Boundary,Visited}{Forward,Left,Right}`: restituisce un successo solo se è presente l'entità della griglia specificata nella direzione fornita ed entro un raggio predefinito. In genere si controllano sono i vicini adiacenti nella direzione fornita;
 - `turnTo{Left,Right}`: restituisce sempre un successo e fa muovere il robot nella direzione indicata di una cella. Se il movimento comporta lo scontro con un ostacolo o il superamento dei confini della griglia, è intercettato dalla macchina a stati finiti. Il movimento del robot è annullato e si memorizza l'avvenuta collisione. Analogamente si memorizzano le informazioni relative al movimento in celle già visitate e all'assenza di movimento;
@@ -603,11 +611,18 @@ skewness: Double
 kurtosis: Double
 ----
 
-== Conclusioni
+== Conclusioni e sviluppi futuri
 
 Lo svolgimento di questo progetto ha portato alla realizzazione di un sistema per l'implementazione automatica di un controller robotico che consenta di portare a termine semplici compiti di navigazione in un ambiente simulato.
 
 Il progetto è disponibile con licenza open source link:https://github.com/rbattistini/btree-evolution/tree/main[qui].
+
+Tra i potenziali sviluppi futuri:
+
+- modificare la valutazione del grado di fitness in funzione del numero di generazioni, ad esempio per introdurre ambienti di test gradualmente più complessi;
+- sperimentare con pool di geni formati da nodi foglia di diverso genere;
+- esplorare lo spazio delle configurazioni in modo automatico, come Iterated Race;
+- definire nuovi domini di test.
 
 == Bibliografia
 

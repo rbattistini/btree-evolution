@@ -7,6 +7,7 @@ import it.irs.evolution.BTreeGene
 import it.irs.lab.btree.GridWorldBTree
 import it.irs.lab.env.GridView.toAscii
 import it.irs.lab.env.GridWorld
+import it.irs.lab.experiment.config.ExperimentConfig
 import it.irs.lab.fsm.robotState.Idle
 import it.irs.lab.sim.GridWorldSim
 import it.irs.lab.sim.GridWorldSimStatistics
@@ -28,48 +29,35 @@ import kotlin.random.Random
  * - Complexity: penalty for tree depth and tree size.
  */
 class FitnessComputer(
-  val maxTreeSize: Int,
-  val treeComplexityPenaltyWeight: Double,
-  val backtrackingWeight: Double,
-  val collisionPenaltyWeight: Double,
-  val phototaxisRewardWeight: Double,
-  val simRunsPerFitnessEval: Int,
-  val maxSimSteps: Int,
-  val virtualTime: Long,
-  val deltaTime: Int,
-  defaultSeed: Int,
-  val dimensions: Int,
-  val numObstacles: Int,
-  val maxValidationAttempts: Int,
-  val neighbourRadius: Int,
+  val cfg: ExperimentConfig,
 ) {
   val ff: (Genotype<BTreeGene<GridWorld>>) -> Double = { gt ->
     Stopwatch
-      .measure("Running $simRunsPerFitnessEval simulations...") {
+      .measure("Running ${cfg.simRunsPerFitnessEval} simulations...") {
         evalSimNTimes(gt.gene().allele()).values.sum()
       }.result
   }
 
   private val logger: KLogger = KotlinLogging.logger {}
-  private val random = Random(defaultSeed)
+  private val random = Random(cfg.defaultSeed)
 
   fun evalSimNTimes(btree: BehaviorTree<GridWorld>): Map<String, Double> =
-    (1..simRunsPerFitnessEval)
+    (1..cfg.simRunsPerFitnessEval)
       .map { evalSim(btree) }
       .fold(emptyMap<String, Double>()) { acc, map ->
         map.entries.fold(acc) { innerAcc, (key, value) ->
           innerAcc + (key to (innerAcc.getOrDefault(key, 0.0) + value))
         }
-      }.mapValues { (_, total) -> total / simRunsPerFitnessEval }
+      }.mapValues { (_, total) -> total / cfg.simRunsPerFitnessEval }
 
   fun evalSim(btree: GridWorldBTree): Map<String, Double> {
     logger.debug { "Building the environment..." }
     logger.debug { "Btree in use \n${btree.string}" }
     val env =
-      getEnv(btree, random, dimensions, numObstacles, maxValidationAttempts, neighbourRadius)
+      getEnv(btree, random, cfg)
     logger.debug { "\n${ env.space.toAscii()}" }
     val fsm = StateMachine(Idle(env))
-    val sim = GridWorldSim(fsm, virtualTime, deltaTime, maxSimSteps)
+    val sim = GridWorldSim(fsm, cfg.startVirtualTime, cfg.deltaTime, cfg.maxSimSteps)
     return evalSim0(sim)
   }
 
@@ -86,20 +74,22 @@ class FitnessComputer(
 
     val totalSteps = stats.totalSteps
     val tcp =
-      treeComplexityPenalty(stats.treeSize, maxTreeSize) *
-        treeComplexityPenaltyWeight
+      treeComplexityPenalty(stats.treeSize, cfg.maxTreeSize) *
+        cfg.treeComplexityPenalty
     val bp =
       backtrackingPenalty(stats.backtrackingSteps, totalSteps) *
-        backtrackingWeight
+        cfg.backtrackingPenalty
+    val ip = idlePenalty(stats.idleSteps, totalSteps) * cfg.idlePenalty
     val cp =
       collisionPenalty(stats.collisionSteps, totalSteps) *
-        collisionPenaltyWeight
+        cfg.collisionPenalty
     val pr =
       phototaxisReward(stats.initialDistanceToLight, stats.finalDistanceToLight) *
-        phototaxisRewardWeight
+        cfg.phototaxisReward
 
     logger.debug { "Tree complexity penalty: \t$tcp" }
     logger.debug { "Backtracking penalty: \t\t$bp" }
+    logger.debug { "Idle penalty: \t\t\t$ip" }
     logger.debug { "Collision penalty: \t\t\t$cp" }
     logger.debug { "Phototaxis reward: \t\t\t$pr" }
     logger.debug { "Fitness \t\t\t\t\t\t${tcp + bp + cp + pr}" }
@@ -107,6 +97,7 @@ class FitnessComputer(
     return buildMap {
       put("treeComplexityPenalty", tcp)
       put("backtrackingPenalty", bp)
+      put("idlePenalty", ip)
       put("collisionPenalty", cp)
       put("phototaxisReward", pr)
     }
@@ -127,6 +118,8 @@ class FitnessComputer(
     }
 
     val backtrackingPenalty: (Int, Int) -> Double = collisionPenalty
+
+    val idlePenalty: (Int, Int) -> Double = collisionPenalty
 
     val treeComplexityPenalty: (Int, Int) -> Double = { treeSize, maxTreeSize ->
       when {

@@ -8,12 +8,13 @@ import kotlin.random.Random
 
 class BTreeRandomDeletionTool<E>(
   override val random: Random = Random(DEFAULT_SEED),
+  val keepChildren: Boolean,
 ) : UnaryRandomTool<E> where E : Environment<*> {
   override val name = "randomDeletion"
 
   override fun transform(btree: BehaviorTree<E>): BehaviorTree<E> {
     val randomIdx = if (btree.size > 1) random.nextInt(1, btree.size) else 0
-    return BehaviorTree(deleteNthNode(btree.root, randomIdx))
+    return BehaviorTree(deleteNthNode(btree.root, randomIdx, keepChildren))
   }
 
   override fun toString(): String = name

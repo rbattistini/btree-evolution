@@ -11,6 +11,7 @@ import kotlinx.serialization.encoding.Encoder
 object DoubleMomentsSerializer : KSerializer<DoubleMoments> {
   @Serializable
   @SerialName("DoubleMoments")
+  @Suppress("LongParameterList")
   private class DoubleMomentsSurrogate(
     val count: Long,
     val min: Double,

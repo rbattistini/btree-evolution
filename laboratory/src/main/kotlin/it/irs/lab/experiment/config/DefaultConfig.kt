@@ -35,6 +35,7 @@ object DefaultConfig {
   // Fitness Function Parameters
   const val GOAL_REACHED_REWARD = 100.0
   const val COLLISION_PENALTY = 100.0
+  const val IDLE_PENALTY = 20.0
   const val BACKTRACKING_PENALTY = 30.0
   const val TREE_COMPLEXITY_PENALTY = 60.0
   const val MAX_TREE_SIZE = 20
@@ -56,6 +57,7 @@ object DefaultConfig {
 
   const val DELTA_TIME = 1
   const val VIRTUAL_TIME: Long = 0
+  const val KEEP_CHILDREN = false
 
   val defaultRules: List<Rule> =
     listOf(
@@ -67,8 +69,10 @@ object DefaultConfig {
 
   val defaultToolset: Map<Rule, RepairTool> =
     mapOf(
-      BTreeRules.noConsecutiveControlNodes to NoConsecutiveControlNodes(),
-      BTreeRules.noIdenticalAdjacentConditions to NoIdenticalAdjacentConditions(),
+      BTreeRules.noConsecutiveControlNodes to
+        NoConsecutiveControlNodes(keepChildren = KEEP_CHILDREN),
+      BTreeRules.noIdenticalAdjacentConditions to
+        NoIdenticalAdjacentConditions(keepChildren = KEEP_CHILDREN),
       BTreeRules.controlNodeMustHaveChildren to ControlNodeMustHaveChildren(),
       BTreeRules.conditionsNotLastChild to ConditionNotLastChild(),
     )
@@ -77,23 +81,21 @@ object DefaultConfig {
 
   val defaultNodeRegistry = LeafNodeRegistry.ofExp1(defaultRandom)
 
-  val createNodeFactory: (LeafNodeRegistry<GridWorld>, Random) -> () -> GridWorldLNode = {
-    reg,
-    rand,
-    ->
-    {
-      reg
-        .nodes
-        .values
-        .filter { it is ActionNode<*> }
-        .random(rand)
+  val createNodeFactory: (LeafNodeRegistry<GridWorld>, Random) -> () -> GridWorldLNode =
+    { reg, rand ->
+      {
+        reg
+          .nodes
+          .values
+          .filter { it is ActionNode<*> }
+          .random(rand)
+      }
     }
-  }
 
   val createMutations: (LeafNodeRegistry<GridWorld>) -> List<UnaryRandomTool<GridWorld>> = { r ->
     listOf(
       BTreeRandomAdditionTool(r),
-      BTreeRandomDeletionTool(),
+      BTreeRandomDeletionTool(keepChildren = KEEP_CHILDREN),
       BTreeRandomModificationTool(r),
     )
   }

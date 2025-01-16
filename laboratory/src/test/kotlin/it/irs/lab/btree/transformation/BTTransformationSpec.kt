@@ -163,7 +163,7 @@ class BTTransformationSpec :
             }
           }
 
-        val transformedBt = deleteNthNode(btree.root, targetIdx)
+        val transformedBt = deleteNthNode(btree.root, targetIdx, keepChildren = true)
         checkTransformation(expectedBt, BehaviorTree(transformedBt))
       }
 

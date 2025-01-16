@@ -36,7 +36,7 @@ object TransformationUtils {
   fun <E> deleteNthNode(
     root: TreeNode<E>,
     targetIndex: Int,
-    keepChildren: Boolean = true,
+    keepChildren: Boolean = false,
   ): TreeNode<E> where E : Environment<*> =
     when {
       targetIndex == 0 -> root

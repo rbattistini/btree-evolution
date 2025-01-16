@@ -39,10 +39,12 @@ object TransformationSpecHelper {
       .random(Random(DEFAULT_TEST_SEED))
   }
 
+  private const val KEEP_CHILDREN = true
+
   private val toolset: Map<Rule, RepairTool> =
     mapOf(
-      BTreeRules.noConsecutiveControlNodes to NoConsecutiveControlNodes(),
-      BTreeRules.noIdenticalAdjacentConditions to NoIdenticalAdjacentConditions(),
+      BTreeRules.noConsecutiveControlNodes to NoConsecutiveControlNodes(KEEP_CHILDREN),
+      BTreeRules.noIdenticalAdjacentConditions to NoIdenticalAdjacentConditions(KEEP_CHILDREN),
       BTreeRules.controlNodeMustHaveChildren to ControlNodeMustHaveChildren(),
       BTreeRules.conditionsNotLastChild to ConditionNotLastChild(),
     )

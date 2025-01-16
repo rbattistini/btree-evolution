@@ -5,14 +5,20 @@ import it.irs.lab.blackboard.RobotWrapper.RobotGenericStorage.updatePoint
 import it.irs.lab.blackboard.RobotWrapper.RobotState.markRobotAsIdle
 import it.irs.lab.blackboard.RobotWrapper.RobotState.markRobotAsMoving
 import it.irs.lab.blackboard.RobotWrapper.RobotState.position
+import it.irs.lab.blackboard.RobotWrapper.RobotStatistics.addIdleStep
 import it.irs.lab.blackboard.RobotWrapper.RobotStatistics.addRevisitedCellStep
 import it.irs.lab.env.GridWorld
+import it.irs.simulation.btree.node.BState
 
 abstract class RobotState : RSState {
   fun tickActiveRobot(env: GridWorld): GridWorld {
     val rootState = env.activeRobot().btree.tick(env)
     logger.trace { "Execution result:\n ${rootState.stackTrace().joinToString("\n")}" }
-    return rootState.env
+    return if (rootState.state == BState.Failure) {
+      env
+    } else {
+      rootState.env
+    }
   }
 
   fun checkIfMoving(env: GridWorld): GridWorld {
@@ -24,7 +30,7 @@ abstract class RobotState : RSState {
       if (oldRobotPosition != currentRobotPosition) {
         currentRobot.markRobotAsMoving()
       } else {
-        currentRobot.markRobotAsIdle()
+        currentRobot.markRobotAsIdle().addIdleStep()
       }
     return env.updateActiveRobot(updatedRobot) ?: env
   }

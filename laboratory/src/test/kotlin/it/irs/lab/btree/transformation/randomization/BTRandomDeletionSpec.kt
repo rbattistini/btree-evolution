@@ -16,7 +16,7 @@ class BTRandomDeletionSpec :
   ShouldSpec({
     context("Testing the random deletion of a node from a behavior tree") {
       should("remove a random composite node from the tree") {
-        val randomDeletion = BTreeRandomDeletionTool<GridWorld>(Random(23))
+        val randomDeletion = BTreeRandomDeletionTool<GridWorld>(Random(23), keepChildren = true)
         val btree =
           btree {
             +sel("Navigation") {
@@ -42,7 +42,7 @@ class BTRandomDeletionSpec :
       }
 
       should("remove a random leaf node from the tree") {
-        val randomDeletion = BTreeRandomDeletionTool<GridWorld>(Random(123))
+        val randomDeletion = BTreeRandomDeletionTool<GridWorld>(Random(123), keepChildren = true)
         val btree =
           btree {
             +sel("Navigation") {

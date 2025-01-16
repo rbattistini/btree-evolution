@@ -16,6 +16,7 @@ data class ExperimentConfig(
   val maxGenerations: Long = DefaultConfig.MAX_GENERATIONS,
   val maxReparationAttempts: Int = DefaultConfig.REPARATION_ATTEMPTS,
   val leafNodes: String = "",
+  val keepChildren: Boolean = DefaultConfig.KEEP_CHILDREN,
   // Simulation parameters
   val gridDimensions: Int = DefaultConfig.DEFAULT_DIMENSION,
   val gridObstacles: Int = DefaultConfig.DEFAULT_NUM_OBSTACLES,
@@ -30,6 +31,7 @@ data class ExperimentConfig(
   // Fitness function parameters
   val phototaxisReward: Double = DefaultConfig.GOAL_REACHED_REWARD,
   val collisionPenalty: Double = DefaultConfig.COLLISION_PENALTY,
+  val idlePenalty: Double = DefaultConfig.IDLE_PENALTY,
   val backtrackingPenalty: Double = DefaultConfig.BACKTRACKING_PENALTY,
   val treeComplexityPenalty: Double = DefaultConfig.TREE_COMPLEXITY_PENALTY,
   val maxTreeSize: Int = DefaultConfig.MAX_TREE_SIZE,

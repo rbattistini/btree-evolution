@@ -7,7 +7,9 @@ import it.irs.simulation.btree.node.branch.CompositeNode
 import it.irs.simulation.btree.transformation.TransformationUtils.deleteNthNode
 import it.irs.simulation.btree.transformation.validation.Rule
 
-class NoConsecutiveControlNodes : DestructiveRepairTool {
+class NoConsecutiveControlNodes(
+  val keepChildren: Boolean,
+) : DestructiveRepairTool {
   override val name = "NoConsecutiveControlNodes"
 
   override fun <E> repair(
@@ -15,7 +17,7 @@ class NoConsecutiveControlNodes : DestructiveRepairTool {
     rule: Rule,
   ): BehaviorTree<E> where E : Environment<*> {
     val idx = findConsecutiveControlNodes(btree.root)
-    return if (idx != null) BehaviorTree(deleteNthNode(btree.root, idx)) else btree
+    return if (idx != null) BehaviorTree(deleteNthNode(btree.root, idx, keepChildren)) else btree
   }
 
   private fun <E> findConsecutiveControlNodes(

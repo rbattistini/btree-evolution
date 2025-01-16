@@ -2,6 +2,7 @@ package it.irs.lab.sim
 
 import it.irs.lab.blackboard.RobotWrapper.RobotState.position
 import it.irs.lab.blackboard.RobotWrapper.RobotStatistics.collisionSteps
+import it.irs.lab.blackboard.RobotWrapper.RobotStatistics.idleSteps
 import it.irs.lab.blackboard.RobotWrapper.RobotStatistics.revisitingSteps
 import it.irs.lab.env.GridExtensions.lightCells
 import it.irs.lab.env.GridExtensions.startPositions
@@ -58,6 +59,7 @@ data class GridWorldSim(
       initialDistanceToLight = computeInitialDistanceToLight(env),
       finalDistanceToLight = computeFinalDistanceToLight(env),
       collisionSteps = robot.collisionSteps() ?: defaultSteps,
+      idleSteps = robot.idleSteps() ?: defaultSteps,
       backtrackingSteps = robot.revisitingSteps() ?: defaultSteps,
       totalSteps = virtualTime.toInt(),
       treeSize = robot.btree.size,

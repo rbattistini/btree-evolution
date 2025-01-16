@@ -11,6 +11,7 @@ import kotlinx.serialization.encoding.Encoder
 object LongMomentsSerializer : KSerializer<LongMoments> {
   @Serializable
   @SerialName("LongMoments")
+  @Suppress("LongParameterList")
   private class LongMomentsSurrogate(
     val count: Long,
     val min: Long,

@@ -8,7 +8,9 @@ import it.irs.simulation.btree.node.leaf.ConditionNode
 import it.irs.simulation.btree.transformation.TransformationUtils.deleteNthNode
 import it.irs.simulation.btree.transformation.validation.Rule
 
-class NoIdenticalAdjacentConditions : DestructiveRepairTool {
+class NoIdenticalAdjacentConditions(
+  val keepChildren: Boolean,
+) : DestructiveRepairTool {
   override val name = "NoIdenticalAdjacentConditions"
 
   override fun <E> repair(
@@ -16,7 +18,7 @@ class NoIdenticalAdjacentConditions : DestructiveRepairTool {
     rule: Rule,
   ): BehaviorTree<E> where E : Environment<*> {
     val idx = findIdenticalAdjacentConditions(btree.root)
-    return if (idx != null) BehaviorTree(deleteNthNode(btree.root, idx)) else btree
+    return if (idx != null) BehaviorTree(deleteNthNode(btree.root, idx, keepChildren)) else btree
   }
 
   private fun <E> findIdenticalAdjacentConditions(

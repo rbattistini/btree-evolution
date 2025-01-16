@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Exp1" type="JetRunConfigurationType">
-    <option name="MAIN_CLASS_NAME" value="it.irs.lab.ExperimentRunnerKt" />
+  <configuration default="false" name="Gridsearch" type="JetRunConfigurationType">
+    <option name="MAIN_CLASS_NAME" value="it.irs.lab.GridSearchRunnerKt" />
     <module name="btree-evolution.laboratory.main" />
-    <option name="PROGRAM_PARAMETERS" value="config/exp1.json" />
+    <option name="PROGRAM_PARAMETERS" value="config/base.json" />
     <shortenClasspath name="NONE" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/laboratory" />
     <method v="2">

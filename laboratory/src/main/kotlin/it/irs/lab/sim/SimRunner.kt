@@ -9,6 +9,7 @@ import it.irs.lab.env.GridWorld
 import it.irs.lab.env.entity.Robot
 import it.irs.lab.env.random.GridValidator
 import it.irs.lab.env.random.RandomGridGenerator
+import it.irs.lab.experiment.config.ExperimentConfig
 import it.irs.simulation.blackboard.Blackboard
 import it.irs.simulation.space.grid.Direction
 import kotlin.random.Random
@@ -17,19 +18,17 @@ object SimRunner {
   fun getEnv(
     btree: GridWorldBTree,
     random: Random,
-    dimensions: Int,
-    numObstacles: Int,
-    maxValidationAttempts: Int,
-    neighbourRadius: Int,
+    cfg: ExperimentConfig,
   ): GridWorld {
     val fakeRobotId = "bb8"
     val gridGenerator =
       RandomGridGenerator(
-        dimensions,
-        numObstacles,
+        cfg.gridDimensions,
+        cfg.gridObstacles,
       )
 
-    val gridValidator = GridValidator(maxValidationAttempts, neighbourRadius)
+    val gridValidator =
+      GridValidator(cfg.maxGridValidationAttempts, cfg.maxNeighbourRadiusForGridValidation)
     val randomGrid =
       gridValidator.genValidGrid(gridGenerator, random).getOrNull() ?: GridWorld.defaultGrid
     val startPosition = randomGrid.startPositions().random(random)

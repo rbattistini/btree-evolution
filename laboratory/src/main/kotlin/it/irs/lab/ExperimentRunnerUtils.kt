@@ -22,7 +22,6 @@ import it.irs.lab.experiment.config.ExperimentConfig
 import it.irs.lab.experiment.serializer.Json
 import it.irs.lab.genetic.Exp1GenePool.ofExp1
 import it.irs.lab.genetic.Exp2GenePool.ofExp2
-import it.irs.lab.genetic.FitnessComputer
 import it.irs.simulation.btree.builder.BTreeRandomGenerator
 import it.irs.simulation.btree.node.leaf.LeafNodeRegistry
 import kotlin.random.Random
@@ -71,24 +70,6 @@ object ExperimentRunnerUtils {
       )
     return Genotype.of(chr)
   }
-
-  fun fitnessComputer(cfg: ExperimentConfig): FitnessComputer =
-    FitnessComputer(
-      maxTreeSize = cfg.maxTreeSize,
-      treeComplexityPenaltyWeight = cfg.treeComplexityPenalty,
-      backtrackingWeight = cfg.backtrackingPenalty,
-      collisionPenaltyWeight = cfg.collisionPenalty,
-      phototaxisRewardWeight = cfg.phototaxisReward,
-      simRunsPerFitnessEval = cfg.simRunsPerFitnessEval,
-      maxSimSteps = cfg.maxSimSteps,
-      virtualTime = cfg.startVirtualTime,
-      deltaTime = cfg.deltaTime,
-      defaultSeed = cfg.defaultSeed,
-      dimensions = cfg.gridDimensions,
-      numObstacles = cfg.gridObstacles,
-      maxValidationAttempts = cfg.maxGridValidationAttempts,
-      neighbourRadius = cfg.maxNeighbourRadiusForGridValidation,
-    )
 
   fun constraint(
     registry: LeafNodeRegistry<GridWorld>,

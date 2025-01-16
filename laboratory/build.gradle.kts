@@ -38,6 +38,15 @@ tasks.register<JavaExec>("runGA") {
   mainClass = "${project.group}.lab.ExperimentRunnerKt"
 }
 
+tasks.register<JavaExec>("runGAWithGridSearch") {
+  description = "Run the main GA class with grid search."
+  group = "custom"
+
+  standardOutput = System.out
+  classpath = sourceSets.main.get().runtimeClasspath
+  mainClass = "${project.group}.lab.GridSearchRunnerKt"
+}
+
 tasks.register<JavaExec>("runRandomSelectorGA") {
   description = "Run the main GA class with a Montecarlo selector."
   group = "custom"
