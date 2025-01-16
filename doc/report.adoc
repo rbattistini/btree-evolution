@@ -256,15 +256,21 @@ I nodi disponibili per la sperimentazione fanno parte di due gruppi.
 
 I nodi del primo gruppo sono:
 
-
-- `isLightNearer`
-- `moveForward`
+- `checkForAndStore{Goal,Obstacle,Boundary,Visited}`: restituisce un successo solo se è presente l'entità della griglia specificata in una qualsiasi delle quattro direzioni cardinali ed entro un raggio predefinito. L'impostazione predefinita controlla le celle adiacenti al robot. Nel caso siano identificate le entità specificate, si memorizzano i punti corrispondenti nella lavagna del robot;
+- `turnToAvoidStored`: restituisce un fallimento nel caso non ci siano punti memorizzati nella lavagna del robot. In caso contrario orienta il robot in una direzione casuale che evita il movimento sulle celle in corrispondenza dei punti indicati;
+- `turnToFollowStored`: restituisce un fallimento nel caso non ci siano punti memorizzati nella lavagna del robot. In caso contrario orienta il robot in una direzione casuale tra quelle che consentono il movimento sulle celle in corrispondenza dei punti indicati;
 
 I nodi del secondo gruppo sono:
 
-- `checkFor{Goal,Obstacle,Boundary,Visited}{Forward,Left,Right}`: restituisce un successo solo se è presente l'entità della griglia specificata nella direzione fornita ed entro un raggio predefinito. In genere si controllano sono i vicini adiacenti nella direzione fornita;
+- `checkFor{Goal,Obstacle,Boundary,Visited}{Forward,Left,Right}`: restituisce un successo solo se è presente l'entità della griglia specificata nella direzione fornita ed entro un raggio predefinito. L'impostazione predefinita controlla le celle adiacenti al robot nella direzione fornita;
 - `turnTo{Left,Right}`: restituisce sempre un successo e fa muovere il robot nella direzione indicata di una cella. Se il movimento comporta lo scontro con un ostacolo o il superamento dei confini della griglia, è intercettato dalla macchina a stati finiti. Il movimento del robot è annullato e si memorizza l'avvenuta collisione. Analogamente si memorizzano le informazioni relative al movimento in celle già visitate e all'assenza di movimento;
-- `moveForward`
+
+I seguenti nodi sono presenti in entrambi i gruppi:
+
+- `stop`: è un nodo azione che restituisce sempre un successo ma non alcun effetto.
+- `turnRandomly`: è un nodo azione che imposta la direzione del robot in modo casuale;
+- `isNearerLight`: è un nodo condizione restituisce un successo solo se il robot si è avvicinato alla luce rispetto all'ultimo spostamento;
+- `moveForward`: è un nodo azione che fa muovere il robot di una cella in avanti, in funzione della direzione verso cui è orientato.
 
 L'ambiente è modellato tramite celle libere o che contengono un ostacolo e tramite un token che indica la posizione iniziale del robot e uno che indica la posizione della luce da raggiungere. Si impiega una funzione di generazione casuale che imposta la posizione iniziale del robot e la luce agli opposti di una griglia quadrata. Gli ostacoli sono piazzati casualmente in modo da lasciare almeno un percorso libero tra la posizione di partenza e l'obiettivo.
 
@@ -327,6 +333,7 @@ La valutazione avviene a partire dalle statistiche raccolte sull'andamento di un
 . distanza iniziale dalla luce;
 . distanza finale dalla luce;
 . numero di iterazioni con collisione;
+. numero di iterazioni in cui l'agente è fermo;
 . numero di celle rivisitate;
 . numero di iterazioni effettuate;
 . dimensione dell'albero di comportamento.
@@ -366,6 +373,19 @@ dove:
 - `s_total` indica il numero di iterazioni totali;
 - `w_collision` indica il peso della penalità per le collisioni.
 
+La penalità legata al numero di iterazioni in cui l'agente non si muove spinge il processo di evoluzione a generare alberi di comportamento che restituiscono uno stato di successo, in quanto l'agente non compie azioni in un'iterazione se l'albero restituisce un fallimento.
+Il calcolo della penalità avviene nel seguente modo:
+
+[example]
+----
+-(s_idle / s_total) * w_idle
+----
+
+dove:
+
+- `s_idle` indica il numero di iterazioni senza movimento;
+- `w_idle` indica il peso della penalità per l'assenza di movimento.
+
 Il numero di celle rivisitate incentiva la ricerca di percorsi efficienti, ovvero che riducono il backtracking il più possible.
 Insieme al numero di iterazioni effettuate, consente di penalizzare percorsi eccessivamente lunghi.
 La penalità complessiva è calcolata in modo analogo a quella per le collisioni:
@@ -401,7 +421,7 @@ In questo modo si migliora il grado di robustezza del controller e la sua capaci
 
 === DSL per alberi di comportamento e griglie
 
-Per facilitare la definizione degli alberi di comportamento manuale, è stato implementato un DSL interno per realizzare una loro specifica concisa. Un esempio di utilizzo è mostrato in <<btree-dsl-example>> e una sua rappresentazione in <<btree-string>>.
+Per facilitare la definizione degli alberi di comportamento manuale, è stato implementato un DSL interno per realizzare una loro specifica concisa. Un esempio di utilizzo è mostrato in <<btree-dsl-example>>.
 
 [#btree-dsl-example]
 .Rappresentazione di un albero di comportamento che consente di effettuare la navigazione in un GridWorld evitando gli ostacoli e dirigendosi verso la luce.
@@ -426,24 +446,6 @@ btree {
     }
   }
 }
-----
-
-[#btree-string]
-.Rappresentazione di un albero di comportamento in formato testuale.
-[example]
-----
-└── Navigation
-    ├── Phototaxis
-    │   ├── checkForAndStore[GreenLight]
-    │   ├── turnToFollowStored
-    │   └── moveForward
-    └── Sequence
-        ├── Selector
-        │   ├── ObstacleAvoidance
-        │   │   ├── checkForAndStore[Obstacle, Boundary]
-        │   │   └── turnToAvoidStored
-        │   └── turnRandomly
-        └── moveForward
 ----
 
 In modo analogo è stato definito un DSL per la specifica della struttura della griglia, un cui esempio di utilizzo è mostrato in <<grid-dsl-example>> e la relativa rappresentazione in <<grid-string>>.
@@ -495,36 +497,29 @@ Per quanto riguarda la qualità del codice sono stati impiegati gli strumenti `K
 
 === Esperimenti
 
-I test sono stati eseguiti su un computer con un processore Intel Core i7-10700 @4.8 GHz e 16 GB di RAM. Le configurazioni dei principali parametri per ciascuno dei tre esperimenti che si è scelto di riportare sono mostrate in <<ga-params>>.
+I test sono stati eseguiti su un computer con un processore Intel Core i7-10700 @4.8 GHz e 16 GB di RAM.
+È stata effettuata una grid search con le seguenti configurazioni di parametri:
 
-[#ga-params]
-.Parametri impiegati per l'algoritmo genetico nei tre esperimenti in analisi. Il numero accanto a "Elitism" indica il numero di individui che formano l'elite di una generazione e il numero accanto a "Tournament" indica il numero di individui coinvolti in ciascun torneo.
-[cols='6,4,4,4', stripes=odd, options=unbreakable]
-|===
-| | Esperimento 1 | Esperimento 2 | Esperimento 3
-| Dimensioni della griglia | 7 | 9 | 9
-| Popolazione  | 30 | 50 | 50
-| Generazioni | 1000 | 2000 | 2000
-| Steady fitness | 300 | 500 | 500
-| % Mutazione | 50 | 70 | 70
-| % Crossover | 60 | 80 | 80
-| Registro di nodi | exp1 | exp1 | exp2
-| Selezione dei sopravvissuti | Elitism 1 | Elitism 3 | Elitism 3
-| Selezione della discendenza | Tournament 3 | Tournament 5 | Tournament 5
-|===
+- probabilità di crossover e mutazione:
+- numero di elité e campione per i tornei;
+- dimensioni della griglia, numero di ostacoli e massimo numero di iterazioni di ciascuna delle tre simulazioni utilizzate per il calcolo della fitness;
+- profondità degli alberi generati casualmente, numero minimo e massimo di figli per ciascun nodo di controllo.
 
-In <<best-fitness>> è mostrato il miglior valore di fitness ottenuto in ciascuno dei tre esperimenti, a confronto con i risultati ottenuti da una baseline che impiega un selettore di Montecarlo.
+Per l'analisi dei risultati sono stati quindi considerati ventiquattro esperimenti, disponibili nel repository del progetto, link:[qui].
+Il task gradle `runGAWithGridSearch` è stato impiegato per la generazione dei dati.
+Di seguito si riportano i risultati ritenuti più rappresentativi del gruppo di esperimenti.
+
+
 
 Si osserva che...
 
 In <<best-fitness-candle>> si riporta un confronto con i valori di fitness ottenuti dagli alberi dei tre esperimenti a confronto con un albero di comportamento programmato manualmente e un albero che determina un movimento casuale nell'ambiente di test, come baseline di confronto.
-Sono mostrati i risultati ottenuti aggregando il valore di fitness calcolato su una sequenza di cinque griglie casuali come ambiente di test per tutti gli alberi.
+
+
+Sono mostrati i risultati ottenuti calcolando la media del valore di fitness su trentasei simulazioni ottenute considerando diverse configurazioni della griglia e un diverso numero di iterazioni per la simulazione.
+I dati sono stati generati con il task gradle `compareBTrees`.
 
 Si osserva che...
-
-[#best-fitness]
-.Grafico della miglior fitness ottenuta per ciascuna generazione nei tre esperimenti in analisi.
-image::fitness_plot.png[align=center, scale=30%]
 
 [#best-fitness-candle]
 .Grafico a candela della miglior fitness ottenuta in ciascuno dei tre esperimenti in analisi, a confronto con i risultati ottenuti impiegando un albero per il movimento casuale e un albero sviluppato manualmente.
@@ -532,6 +527,32 @@ image::fitness_plot.png[align=center, scale=30%]
 
 In X, Y e Z è riportato l'albero relativo al miglior genotipo.
 In X e Y sono riportati gli alberi impiegati come baseline.
+
+[#btree-handcrafted-baseline2]
+.
+
+[#btree-handcrafted-baseline]
+.Rappresentazione di un albero di comportamento in formato testuale.
+[example]
+----
+└── Navigation
+    ├── Phototaxis
+    │   ├── checkForAndStore[GreenLight]
+    │   ├── turnToFollowStored
+    │   └── moveForward
+    └── Sequence
+        ├── Selector
+        │   ├── ObstacleAvoidance
+        │   │   ├── checkForAndStore[Obstacle, Boundary]
+        │   │   └── turnToAvoidStored
+        │   └── turnRandomly
+        └── moveForward
+----
+
+[#exp-result-schema]
+.Rappresentazione della schema impiegato per memorizzare i risultati di un esperimento.
+[example]
+----
 
 I risultati di ciascun esperimento sono riportati impiegando lo schema indicato in <<exp-result-schema>>, oltre che quelli mostrati in <<exp-config-schema>> e <<exp-moments-schema>>.
 
@@ -580,6 +601,7 @@ steadyFitness: Int
 maxGenerations: Int
 maxReparationAttempts: Int
 leafNodes: String
+keepChildren: Boolean,
 gridDimensions: Int
 gridObstacles: Int
 maxTreeDepth: Int

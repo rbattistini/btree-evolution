@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Baseline" type="JetRunConfigurationType">
-    <option name="MAIN_CLASS_NAME" value="it.irs.lab.HandcraftedBaselineKt" />
+    <option name="MAIN_CLASS_NAME" value="it.irs.lab.BTreesComparisonRunnerKt" />
     <module name="btree-evolution.laboratory.main" />
     <option name="PROGRAM_PARAMETERS" value="config/exp3.json" />
     <shortenClasspath name="NONE" />

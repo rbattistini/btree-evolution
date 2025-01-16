@@ -30,7 +30,7 @@ and save the gathered data as a CSV run:
 
 [source, shell]
 ----
-./gradlew compareWithBaseline --args="config/exp3.json test.csv"
+./gradlew compareBTrees --args="config/exp3.json test.csv"
 ----
 
 == Documentation

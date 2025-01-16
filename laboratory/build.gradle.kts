@@ -56,13 +56,13 @@ tasks.register<JavaExec>("runRandomSelectorGA") {
   mainClass = "${project.group}.lab.RandomSelectionBaselineKt"
 }
 
-tasks.register<JavaExec>("compareWithBaseline") {
-  description = "Run the class to compare with the baseline."
+tasks.register<JavaExec>("compareBTrees") {
+  description = "Run the class to compare the behavior trees."
   group = "custom"
 
   standardOutput = System.out
   classpath = sourceSets.main.get().runtimeClasspath
-  mainClass = "${project.group}.lab.HandcraftedBaselineKt"
+  mainClass = "${project.group}.lab.BTreesComparisonRunnerKt"
 }
 
 tasks.test {

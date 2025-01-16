@@ -5,81 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c880bd7c-cdc3-4905-be57-cc71eb3dec27" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Gridsearch.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/laboratory/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/laboratory/config/base.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/laboratory/notebook/simulation_results.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/GridSearchRunner.kt" afterDir="false" />
-      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/runConfigurations/Gridsearch.xml" afterDir="false" />
-      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/.gitignore" afterDir="false" />
-      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/config/base.json" afterDir="false" />
-      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/notebook/simulation_results.csv" afterDir="false" />
-      <change afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/GridSearchRunner.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Exp1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Exp1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Montecarlo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Montecarlo.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Baseline.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Baseline.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/README.adoc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/doc/report.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/doc/report.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/config/exp1.json" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/config/exp1.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/config/exp2.json" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/config/exp2.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/config/exp3.json" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/config/exp3.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/notebook/boxplot.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/notebook/boxplot.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/notebook/btrees.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/notebook/btrees.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/notebook/lineplot.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/notebook/lineplot.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory/notebook/overview.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/notebook/overview.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/BTreesToCompare.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/BTreesToCompare.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/ExperimentRunnerUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/ExperimentRunnerUtils.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/HandcraftedBaseline.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/HandcraftedBaseline.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/experiment/EvolutionEngineBuilder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/experiment/EvolutionEngineBuilder.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/experiment/config/DefaultConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/experiment/config/DefaultConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/experiment/config/ExperimentConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/experiment/config/ExperimentConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/experiment/serializer/DoubleMomentsSerializer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/experiment/serializer/DoubleMomentsSerializer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/experiment/serializer/IntMomentsSerializer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/experiment/serializer/IntMomentsSerializer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/experiment/serializer/LongMomentsSerializer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/experiment/serializer/LongMomentsSerializer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/RobotState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/RobotState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/genetic/FitnessComputer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/genetic/FitnessComputer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/sim/GridWorldSim.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/sim/GridWorldSim.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/sim/GridWorldSimStatistics.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/sim/GridWorldSimStatistics.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/sim/SimRunner.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/sim/SimRunner.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/BTTransformationSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/BTTransformationSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/TransformationSpecHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/TransformationSpecHelper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomDeletionSpec.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomDeletionSpec.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/TransformationUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/TransformationUtils.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BTreeRandomDeletionTool.kt" beforeDir="false" afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BTreeRandomDeletionTool.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/NoConsecutiveControlNodes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/NoConsecutiveControlNodes.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/NoIdenticalAdjacentConditions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/NoIdenticalAdjacentConditions.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/runConfigurations/Exp1.xml" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/runConfigurations/Exp1.xml" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/runConfigurations/Montecarlo.xml" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/runConfigurations/Montecarlo.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/GridSearchRunner.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/GridSearchRunner.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/HandcraftedBaseline.kt" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/kotlin/it/irs/lab/BTreesComparisonRunner.kt" afterDir="false" />
+      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/runConfigurations/Baseline.xml" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/runConfigurations/Baseline.xml" afterDir="false" />
       <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/workspace.xml" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/README.adoc" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/README.adoc" afterDir="false" />
       <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/doc/report.adoc" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/doc/report.adoc" afterDir="false" />
+      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/.gitignore" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/.gitignore" afterDir="false" />
       <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/build.gradle.kts" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/build.gradle.kts" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/config/exp1.json" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/config/exp1.json" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/config/exp2.json" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/config/exp2.json" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/config/exp3.json" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/config/exp3.json" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/notebook/boxplot.ipynb" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/notebook/boxplot.ipynb" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/notebook/btrees.ipynb" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/notebook/btrees.ipynb" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/notebook/lineplot.ipynb" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/notebook/lineplot.ipynb" afterDir="false" />
       <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/notebook/overview.ipynb" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/notebook/overview.ipynb" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/BTreesToCompare.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/BTreesToCompare.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/ExperimentRunnerUtils.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/ExperimentRunnerUtils.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/HandcraftedBaseline.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/HandcraftedBaseline.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/experiment/EvolutionEngineBuilder.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/experiment/EvolutionEngineBuilder.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/experiment/config/DefaultConfig.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/experiment/config/DefaultConfig.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/experiment/config/ExperimentConfig.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/experiment/config/ExperimentConfig.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/experiment/serializer/DoubleMomentsSerializer.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/experiment/serializer/DoubleMomentsSerializer.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/experiment/serializer/IntMomentsSerializer.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/experiment/serializer/IntMomentsSerializer.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/experiment/serializer/LongMomentsSerializer.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/experiment/serializer/LongMomentsSerializer.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/RobotState.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/fsm/robotState/RobotState.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/genetic/FitnessComputer.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/genetic/FitnessComputer.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/sim/GridWorldSim.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/sim/GridWorldSim.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/sim/GridWorldSimStatistics.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/sim/GridWorldSimStatistics.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/sim/SimRunner.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/sim/SimRunner.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/BTTransformationSpec.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/BTTransformationSpec.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/TransformationSpecHelper.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/TransformationSpecHelper.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomDeletionSpec.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/test/kotlin/it/irs/lab/btree/transformation/randomization/BTRandomDeletionSpec.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/TransformationUtils.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/TransformationUtils.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BTreeRandomDeletionTool.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/randomization/BTreeRandomDeletionTool.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/NoConsecutiveControlNodes.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/NoConsecutiveControlNodes.kt" afterDir="false" />
-      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/NoIdenticalAdjacentConditions.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/simulation/src/main/kotlin/it/irs/simulation/btree/transformation/reparation/NoIdenticalAdjacentConditions.kt" afterDir="false" />
+      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/GridSearchRunner.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/GridSearchRunner.kt" afterDir="false" />
+      <change beforePath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/HandcraftedBaseline.kt" beforeDir="false" afterPath="$USER_HOME$/IdeaProjects/btree-evolution/laboratory/src/main/kotlin/it/irs/lab/BTreesComparisonRunner.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,6 +196,7 @@
     "Kotlin.ConfigManagerKt.executor": "Run",
     "Kotlin.Exp1.executor": "Run",
     "Kotlin.ExperimentRunnerKt.executor": "Run",
+    "Kotlin.Gridsearch.executor": "Run",
     "Kotlin.Montecarlo.executor": "Run",
     "Kotlin.PlaygroundKt.executor": "Run",
     "Kotlin.RSBTParserKt.executor": "Run",
@@ -521,7 +465,8 @@
       <workItem from="1736926196920" duration="6505000" />
       <workItem from="1736933383835" duration="21353000" />
       <workItem from="1736962268818" duration="4315000" />
-      <workItem from="1737014371183" duration="10709000" />
+      <workItem from="1737014371183" duration="11639000" />
+      <workItem from="1737037492605" duration="6634000" />
     </task>
     <servers />
   </component>
