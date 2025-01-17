@@ -6,7 +6,7 @@ To run the genetic algorithm with a specific config file:
 
 [source, shell]
 ----
- ./gradlew runGA --args="config/exp1.json"
+ ./gradlew runGA --args="config/<CONFIG_NAME>.json"
 ----
 
 The default config is used if no path to a config file is given.
@@ -15,7 +15,7 @@ To run the genetic algorithm with a Montecarlo selector, to define a baseline, r
 
 [source, shell]
 ----
- ./gradlew runRandomSelectorGA --args="config/exp1.json"
+ ./gradlew runRandomSelectorGA --args="config/<CONFIG_NAME>.json"
 ----
 
 To run the genetic algorithm over a set of parameters defined in the `GridSearchRunner` class, run:
@@ -30,7 +30,7 @@ and save the gathered data as a CSV run:
 
 [source, shell]
 ----
-./gradlew compareBTrees --args="config/exp3.json test.csv"
+./gradlew compareBTrees --args="config/<CONFIG_NAME>.json test.csv"
 ----
 
 == Documentation
