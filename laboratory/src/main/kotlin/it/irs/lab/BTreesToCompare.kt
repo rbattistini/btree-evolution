@@ -51,12 +51,17 @@ object BTreesToCompare {
             +turnRandomly
           }
         }
-        +moveForward
+        +sel {
+          +moveForward
+          +seq {
+            +checkForAndStore(setOf(Obstacle, Boundary, Visited))
+            +turnToAvoidStored
+            +moveForward
+          }
+        }
       }
     }
 
-  // obtained with montecarlo on bigger grids
-  // worst fitness experiments converge to this
   val randomBTree =
     btree {
       +seq {
@@ -65,56 +70,68 @@ object BTreesToCompare {
       }
     }
 
-  // works well in a smaller grid
-  // most high fitness experiments converge to this form
   val exp1BTree =
     btree {
-      +seq {
-        +checkForAndStore(setOf(Obstacle, Boundary, Visited))
-        +turnToAvoidStored
-        +moveForward
+      +sel {
+        +seq {
+          +moveForward
+          +checkForAndStore(setOf(Obstacle, Boundary, Visited))
+          +turnToAvoidStored
+          +turnToAvoidStored
+        }
+        +turnRandomly
       }
     }
   val exp2BTree =
     btree {
       +seq {
-        +turnRandomly
-        +checkForAndStore(setOf(Obstacle, Boundary, Visited))
-        +turnToAvoidStored
-        +Stop()
-        +moveForward
         +sel {
-          +turnRandomly
-        }
-        +turnRandomly
-        +sel {
-          +turnToFollowStored
+          +seq {
+            +checkForAndStore(setOf(Obstacle, Boundary, Visited))
+            +turnToAvoidStored
+            +moveForward
+            +turnRandomly
+          }
+          +seq {
+            +turnRandomly
+            +moveForward
+          }
+          +turnToAvoidStored
         }
       }
-    } // same as exp1Btree if simplified
+    }
 
   val exp3BTree =
     btree {
-      +moveForward
-      +checkFor(GridEntity.GreenLight, Orientation.Forward)
-      +turnRandomly
-      +turnTo(Orientation.Left)
-      +checkForSet(setOf(Obstacle, Boundary, Visited), Orientation.Right)
-      +seq {
-        +turnTo(Orientation.Left)
+      +sel {
+        +seq {
+          +sel {
+            +moveForward
+          }
+          +checkForAndStore(setOf(Obstacle, Boundary, Visited))
+          +turnToAvoidStored
+        }
         +turnRandomly
+        +seq {
+          +moveForward
+          +turnToAvoidStored
+        }
+        +Stop()
       }
-    } // same as random if simplified
+    }
 
   val exp4BTree =
     btree {
-      +seq {
-        +checkForAndStore(setOf(Obstacle, Boundary, Visited))
-        +sel {
-          +turnToAvoidStored
+      +sel {
+        +moveForward
+        +checkFor(GridEntity.GreenLight, Orientation.Forward)
+        +turnRandomly
+        +turnTo(Orientation.Left)
+        +checkForSet(setOf(Obstacle, Boundary, Visited), Orientation.Right)
+        +seq {
+          +turnTo(Orientation.Left)
           +turnRandomly
         }
-        +moveForward
       }
     }
 }

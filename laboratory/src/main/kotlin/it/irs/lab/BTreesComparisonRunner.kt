@@ -1,5 +1,8 @@
 package it.irs.lab
 
+import it.irs.lab.BTreesToCompare.exp1BTree
+import it.irs.lab.BTreesToCompare.exp2BTree
+import it.irs.lab.BTreesToCompare.exp3BTree
 import it.irs.lab.BTreesToCompare.handcraftedBTree1
 import it.irs.lab.BTreesToCompare.handcraftedBTree2
 import it.irs.lab.BTreesToCompare.randomBTree
@@ -38,8 +41,8 @@ fun experiment(
         "${roundOffDecimal(res["phototaxisReward"] ?: -1.0)}," +
         "${roundOffDecimal(fitness)}",
     )
-    println("Handcrafted 1 Evaluation Result: ${res.pprint()}\n")
-    println("Random Avg. Fitness: \t\t${fitness.format(2)}\n")
+    println("Evaluation Result: ${res.pprint()}\n")
+    println("Avg. Fitness: \t\t${fitness.format(2)}\n")
   }
 }
 
@@ -54,6 +57,9 @@ fun main(args: Array<String>) {
       "Handcrafted1" to handcraftedBTree1,
       "Handcrafted2" to handcraftedBTree2,
       "Random" to randomBTree,
+      "Exp1" to exp1BTree,
+      "Exp2" to exp2BTree,
+      "Exp3" to exp3BTree,
     )
 
   val resultsPath =

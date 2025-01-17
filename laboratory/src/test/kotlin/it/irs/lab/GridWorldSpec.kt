@@ -28,6 +28,7 @@ class GridWorldSpec :
     fun getEnv(): GridWorld {
       val fakeRobotId = "bb8"
       val btree =
+
         btree {
           +seq {
             +sel {
@@ -40,14 +41,7 @@ class GridWorldSpec :
                 +turnRandomly
               }
             }
-            +sel {
-              +moveForward
-              +seq {
-                +checkForAndStore(setOf(Obstacle, Boundary, Visited))
-                +turnToAvoidStored
-                +moveForward
-              }
-            }
+            +moveForward
           }
         }
       println(btree.string)

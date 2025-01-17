@@ -501,38 +501,118 @@ I test sono stati eseguiti su un computer con un processore Intel Core i7-10700 
 È stata effettuata una grid search con le seguenti configurazioni di parametri:
 
 - probabilità di crossover e mutazione:
-- numero di elité e campione per i tornei;
 - dimensioni della griglia, numero di ostacoli e massimo numero di iterazioni di ciascuna delle tre simulazioni utilizzate per il calcolo della fitness;
 - profondità degli alberi generati casualmente, numero minimo e massimo di figli per ciascun nodo di controllo.
 
-Per l'analisi dei risultati sono stati quindi considerati ventiquattro esperimenti, disponibili nel repository del progetto, link:[qui].
+Per l'analisi dei risultati sono stati considerati ventiquattro esperimenti.
 Il task gradle `runGAWithGridSearch` è stato impiegato per la generazione dei dati.
-Di seguito si riportano i risultati ritenuti più rappresentativi del gruppo di esperimenti.
+In base alla configurazione dei pesi il massimo valore di fitness ottenibile è pari a cento.
+Per un elenco esaustivo dei parametri impiegati in ciascun esperimento si rimanda all'archivio degli esperimenti, disponibile link:[qui].
 
+[#ga-params]
+.Parametri impiegati per l'algoritmo genetico nei tre esperimenti in analisi.
+[cols='6,4,4,4', stripes=odd, options=unbreakable]
+|===
+| | `lucid_liskov` | `inspiring_sanderson` | `wonderful_thompson`
+| Dimensioni della griglia | 5 | 7 | 9
+| Popolazione  | 30 | 30 | 30
+| Generazioni max. | 1000 | 1000 | 1000
+| Steady fitness | 300 | 300 | 300
+| % Mutazione | 70 | 60 | 80
+| % Crossover | 70 | 60 | 80
+|===
 
+In <<best-fitness>> si riporta il miglior risultato in termini di fitness per ciascuna configurazione della griglia, utilizzando `Elitism` come selettore dei sopravvissuti e `Tournament` come selettore della progenie, a confronto con i risultati ottenuti da una baseline che impiega un selettore di Montecarlo.
+In <<ga-params>> sono riportati i parametri relativi a ciascuna delle tre configurazioni della griglia in analisi.
+In <<fitness-params>> sono riportati i pesi impiegati per il calcolo della fitness in tutti gli esperimenti.
+Si osserva che l'algoritmo genetico implementato è in grado di generare alberi più prestanti di quelli ottenuti tramite un processo di selezione casuale.
 
-Si osserva che...
+[#fitness-params]
+.Pesi impiegati nel calcolo della funzione di fitness.
+[cols='6,4', stripes=odd, options=unbreakable]
+|===
+| Nome del peso | Valore
+| Phototaxis Reward | 100
+| Collision Penalty  | 80
+| Idle Penalty | 60
+| Backtracking Penalty | 30
+| Tree Complexity Penalty | 50
+|===
 
-In <<best-fitness-candle>> si riporta un confronto con i valori di fitness ottenuti dagli alberi dei tre esperimenti a confronto con un albero di comportamento programmato manualmente e un albero che determina un movimento casuale nell'ambiente di test, come baseline di confronto.
+[#best-fitness]
+.Grafico della miglior fitness ottenuta per ciascuna generazione nei tre esperimenti in analisi. `confident_euler`, `elegant_lalande` e `flamboyant_ride` sono gli esperimenti che utilizzano il selettore di Montecarlo per ciascuna delle tre configurazione sperimentali.
+image::fitness_evaluation.png[align=center, scale=26%]
 
-
+In <<best-fitness-candle>> si riporta un confronto con i valori di fitness ottenuti dagli alberi dei tre esperimenti in analisi a confronto con due alberi di comportamento programmati manualmente e un albero che determina un movimento casuale nell'ambiente di test, come baseline di confronto.
 Sono mostrati i risultati ottenuti calcolando la media del valore di fitness su trentasei simulazioni ottenute considerando diverse configurazioni della griglia e un diverso numero di iterazioni per la simulazione.
 I dati sono stati generati con il task gradle `compareBTrees`.
 
-Si osserva che...
-
 [#best-fitness-candle]
-.Grafico a candela della miglior fitness ottenuta in ciascuno dei tre esperimenti in analisi, a confronto con i risultati ottenuti impiegando un albero per il movimento casuale e un albero sviluppato manualmente.
-image::fitness_plot.png[align=center, scale=30%]
+.Grafico a candela della miglior fitness ottenuta in ciascuno dei tre esperimenti in analisi, a confronto con i risultati ottenuti impiegando un albero per il movimento casuale e due alberi sviluppati manualmente.
+image::btrees_evaluation.png[align=center, scale=25%]
 
-In X, Y e Z è riportato l'albero relativo al miglior genotipo.
-In X e Y sono riportati gli alberi impiegati come baseline.
+Si osserva che le prestazioni degli alberi generati manualmente, rispettivamente `handcrafted1` mostrato in <<btree-handcrafted-baseline>> e `handcrafted2` mostrato in <<btree-handcrafted-baseline2>>, sono leggermente migliori rispetto a quelle degli alberi ottenuti tramite evoluzione.
+L'albero che assume un comportamento casuale, mostrato in <<btree-random-baseline>>, risulta effettivamente penalizzato dalla funzione di fitness.
+Per quanto riguarda gli alberi appresi, mostrati in <<btree-evolved-grid5>>, <<btree-evolved-grid7>> e <<btree-evolved-grid9>>, si osserva che indipendentemente dalle diverse configurazioni e dall'ambiente di test si ottengono risultati molto simili tra loro. Dal punto di vista strutturale, gli alberi ottenuti tramite evoluzione sono molto simili a `handcrafted1`, con la differenza che non impiegano nodi condizione direttamente relativi al comportamento della fototassi.
 
-[#btree-handcrafted-baseline2]
-.
+[#btree-evolved-grid5]
+[example]
+.Rappresentazione testuale dell'albero relativo all'esperimento `lucid_liskov`.
+----
+└── Selector
+    ├── Sequence
+    │   ├── moveForward
+    │   ├── checkForAndStore[Obstacle, Boundary, Visited]
+    │   ├── turnToAvoidStored
+    │   └── turnToAvoidStored
+    └── turnRandomly
+----
+
+[#btree-evolved-grid7]
+.Rappresentazione testuale dell'albero relativo all'esperimento `inspiring_sanderson`.
+[example]
+----
+└── Sequence
+    └── Selector
+        ├── Sequence
+        │   ├── checkForAndStore[Obstacle, Boundary, Visited]
+        │   ├── turnToAvoidStored
+        │   ├── moveForward
+        │   └── turnRandomly
+        ├── Sequence
+        │   ├── turnRandomly
+        │   └── moveForward
+        └── turnToAvoidStored
+----
+
+[#btree-evolved-grid9]
+.Rappresentazione testuale dell'albero relativo all'esperimento `wonderful_thompson`.
+[example]
+----
+└── Selector
+    ├── Sequence
+    │   ├── Selector
+    │   │   └── moveForward
+    │   ├── checkForAndStore[Obstacle, Boundary, Visited]
+    │   └── turnToAvoidStored
+    ├── turnRandomly
+    ├── Sequence
+    │   ├── moveForward
+    │   └── turnToAvoidStored
+    └── Stop
+----
+
+[#btree-random-baseline]
+.Rappresentazione testuale di un albero che determina un movimento casuale nella griglia. Si tratta anche del tipo di albero verso cui converge la variante dell'algoritmo che impiega il selettore Montecarlo.
+[example]
+----
+└── Sequence
+    ├── moveForward
+    └── turnRandomly
+----
 
 [#btree-handcrafted-baseline]
-.Rappresentazione di un albero di comportamento in formato testuale.
+.Rappresentazione testuale dell'albero sviluppato manualmente `handcrafted1`. Dato che il comportamento di fototassi determina il raggiungimento della luce verde solo se si trova in una cella immediatamente adiacente al robot, la principale ragione di successo dell'albero sta nella capacità di navigare l'ambiente evitando gli ostacoli e le celle già visitate.
 [example]
 ----
 └── Navigation
@@ -549,9 +629,24 @@ In X e Y sono riportati gli alberi impiegati come baseline.
         └── moveForward
 ----
 
-[#exp-result-schema]
-.Rappresentazione della schema impiegato per memorizzare i risultati di un esperimento.
+[#btree-handcrafted-baseline2]
+.Rappresentazione testuale dell'albero sviluppato manualmente `handcrafted2`. La condizione `isNearerLight` permette di navigare in maniera più efficiente ampi spazi liberi da ostacoli.
 [example]
+----
+└── Sequence
+    ├── Selector
+    │   ├── isNearerLight
+    │   └── Selector
+    │       ├── Sequence
+    │       │   ├── checkForAndStore[Obstacle, Boundary, Visited]
+    │       │   └── turnToAvoidStored
+    │       └── turnRandomly
+    └── Selector
+        ├── moveForward
+        └── Sequence
+            ├── checkForAndStore[Obstacle, Boundary, Visited]
+            ├── turnToAvoidStored
+            └── moveForward
 ----
 
 I risultati di ciascun esperimento sono riportati impiegando lo schema indicato in <<exp-result-schema>>, oltre che quelli mostrati in <<exp-config-schema>> e <<exp-moments-schema>>.
