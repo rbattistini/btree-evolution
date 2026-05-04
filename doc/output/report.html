@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.22">
+<title>Evoluzione di alberi di comportamento con un algoritmo genetico</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Evoluzione di alberi di comportamento con un algoritmo genetico</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Università di Bologna · Campus di Cesena</p>
+</div>
+<div class="paragraph">
+<p>Corso di Laurea Magistrale in Ingegneria e Scienze Informatiche</p>
+</div>
+<hr>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="normalize">Riccardo Battistini</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="normalize">0001034968</span></p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduzione">Introduzione</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Il progetto consiste nell&#8217;implementazione di un controller evolutivo per un robot progettato per navigare in una griglia bidimensionale. Il controller utilizza un albero di comportamento, appreso tramite un algoritmo genetico, per gestire comportamenti come l&#8217;evitamento degli ostacoli e la fototassi positiva.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_design">Design</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Il progetto si compone di tre moduli:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>simulation</code>: include le funzionalità richieste per implementare una simulazione, fornendo dei concetti generici, come quelli di agente e ambiente, a partire dai quali implementare delle applicazioni;</p>
+</li>
+<li>
+<p><code>evolution</code>: definisce i componenti dell&#8217;algoritmo con cui si evolve un controller robotico, nella forma di un albero di comportamento e tramite programmazione genetica;</p>
+</li>
+<li>
+<p><code>laboratory</code>: include un&#8217;applicazione di esempio. Utilizza il modulo <code>simulation</code> per implementare il dominio della simulazione scelto e il modulo <code>evolution</code> per l&#8217;evoluzione di un controller.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_modulo_per_la_simulazione">Modulo per la simulazione</h3>
+<div class="paragraph">
+<p>Il modulo <code>simulation</code> include le astrazioni per modellare:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>macchina a stati finiti</strong>, per esprimere lo stato della simulazione osservabile in un dato istante temporale di una simulazione discreta e per la raccolta di statistiche;</p>
+</li>
+<li>
+<p><strong>lavagna</strong>, che funge da base di dati chiave-valore mantenuta in memoria;</p>
+</li>
+<li>
+<p><strong>ambiente</strong>, costituito da uno spazio, che può essere una griglia, da un insieme di entità e da una lavagna;</p>
+</li>
+<li>
+<p><strong>entità</strong>, come un agente che segue un piano e memorizza informazioni in una propria lavagna;</p>
+</li>
+<li>
+<p><strong>albero di comportamento</strong>, che consente di implementare una specifica eseguibile del comportamento di un agente.</p>
+</li>
+</ul>
+</div>
+<div id="simulation-classes" class="imageblock text-center">
+<div class="content">
+<img src="./assets/images/sim-classes.svg" alt="sim classes" width="68640" height="40480">
+</div>
+<div class="title">Figura 1. Diagramma delle classi relative al modulo per la simulazione.</div>
+</div>
+<div class="paragraph">
+<p>In <a href="#simulation-classes">Figura 1</a> è mostrato il diagramma delle classi relativo a questi concetti. Si osserva che la maggior parte sono rappresentati tramite interfacce, concepite per essere estese dalla specifica applicazione in base al dominio della simulazione.</p>
+</div>
+<div class="paragraph">
+<p>In <a href="#btree-classes">Figura 2</a> è mostrato il diagramma delle classi relativo alla modellazione dell&#8217;albero di comportamento. Si osservano quattro tipologie di nodi:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>nodo di controllo <code>Sequence</code>. Esegue una sequenza di azioni o condizioni in ordine. Restituisce un successo solo se tutti i suoi figli completano con successo. Se uno dei figli fallisce, l&#8217;esecuzione del nodo termina con un fallimento;</p>
+</li>
+<li>
+<p>nodo di controllo <code>Selector</code>. Esegue i suoi figli in ordine fino a quando uno di essi fallisce. Se un figlio ha successo, il nodo termina con un successo, ignorando i restanti figli. Se tutti i figli falliscono, il nodo termina con un fallimento;</p>
+</li>
+<li>
+<p>nodo foglia <code>Condition</code>. Verifica una condizione specifica nel contesto dell&#8217;esecuzione. Restituisce un successo o un fallimento in base al risultato della condizione valutata, senza eseguire ulteriori azioni;</p>
+</li>
+<li>
+<p>nodo foglia <code>Action</code>. Implica un&#8217;interazione attiva dell&#8217;agente con l&#8217;ambiente e restituisce un successo o un fallimento in base al risultato dell&#8217;azione intrapresa.</p>
+</li>
+</ul>
+</div>
+<div id="btree-classes" class="imageblock text-center">
+<div class="content">
+<img src="./assets/images/btree-classes.svg" alt="btree classes" width="47280" height="25760">
+</div>
+<div class="title">Figura 2. Diagramma delle classi relativo agli alberi di comportamento.</div>
+</div>
+<div class="paragraph">
+<p>L&#8217;esecuzione dell&#8217;albero si realizza propagando un segnale che rappresenta un tick della simulazione a partire dalla radice e restituendo un oggetto di tipo <code>TreeResult</code>.
+La risoluzione di ciascun nodo dell&#8217;albero è istantanea, perciò ci si limita a tracciare gli stati di successo e fallimento.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modulo_per_levoluzione">Modulo per l&#8217;evoluzione</h3>
+<div class="paragraph">
+<p>Il modulo <code>evolution</code> fornisce l&#8217;implementazione di diversi concetti relativi al mondo della programmazione genetica e funge da ponte tra la libreria Jenetics e le astrazioni di albero di comportamento e simulazione implementate.</p>
+</div>
+<div class="paragraph">
+<p>In particolare sono state definite le classi:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>BTreeGene</code> e <code>BTreeChromosome</code>: estendono rispettivamente le classi <code>Gene</code> e <code>Chromosome</code> di Jenetics. Definiscono una codifica <strong>completa</strong> e <strong>minimale</strong> che include le informazioni sufficienti a rappresentare ogni possibile soluzione del problema e che contiene solo quelle necessarie a rappresentare una soluzione del problema. Ciascun individuo della popolazione, ogni fenotipo, ha un genotipo formato da un unico cromosoma. Il cromosoma a sua volta ha un unico gene, il cui allele è un albero di comportamento.</p>
+</li>
+<li>
+<p><code>BTreeMutator</code>: estende la classe <code>Mutator</code> di Jenetics e definisce le operazioni di mutazione che possono essere effettuate sull&#8217;albero;</p>
+</li>
+<li>
+<p><code>BTreeCrossover</code>: estende la classe <code>Crossover</code> di Jenetics e definisce come avviene il crossover di due alberi;</p>
+</li>
+<li>
+<p><code>BTreeConstraint</code>: estende la classe <code>Constraint</code> di Jenetics e fornisce l&#8217;implementazione dei metodi per effettuare la riparazione di un individuo non valido.</p>
+</li>
+</ul>
+</div>
+<div id="btree-crossover" class="imageblock text-center">
+<div class="content">
+<img src="./assets/images/mutation.svg" alt="mutation">
+</div>
+<div class="title">Figura 3. Rappresentazione visiva del crossover tra due alberi.</div>
+</div>
+<div class="paragraph">
+<p>In modo analogo a <span class="citation">[<a href="#iovinoLearningBehaviorTrees2020">1</a>]</span>, sono state implementate operazioni di crossover e mutazione. Sono disponibili tre tipi di mutazione: aggiunta, rimozione o modifica di un nodo dell&#8217;albero. In <a href="#btree-crossover">Figura 3</a> è mostrato un esempio di crossover, implementato come uno scambio di sottoalberi.</p>
+</div>
+<div class="paragraph">
+<p>Oltre a queste due operazioni, ne sono state introdotte alcune per la validazione e la manipolazione della struttura dell&#8217;albero, sia per l&#8217;uso come primitive per la mutazione che per la riparazione degli alberi e la validazione degli individui di una popolazione. In <a href="#btree-reparation">Figura 4</a> e <a href="#btree-randomization">Figura 5</a> sono mostrati i relativi diagrammi di classe.</p>
+</div>
+<div id="btree-reparation" class="imageblock text-center">
+<div class="content">
+<img src="./assets/images/btree-reparation.svg" alt="btree reparation" width="80800" height="25760">
+</div>
+<div class="title">Figura 4. Diagramma delle classi delle operazioni di riparazione degli alberi.</div>
+</div>
+<div id="btree-randomization" class="imageblock text-center">
+<div class="content">
+<img src="./assets/images/btree-randomization.svg" alt="btree randomization" width="75680" height="25760">
+</div>
+<div class="title">Figura 5. Diagramma delle classi delle operazioni di trasformazione casuale degli alberi.</div>
+</div>
+<div class="paragraph">
+<p>La trasformazione degli alberi ha lo scopo di eliminare le combinazioni di nodi che non hanno effetto sull&#8217;esecuzione dell&#8217;albero, sia tramite aggiunta che rimozione di nodi. Tra le operazioni effettuate ci sono:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>l&#8217;aggiunta di un nodo di tipo azione nel caso ci sia un nodo di controllo senza figli;</p>
+</li>
+<li>
+<p>l&#8217;aggiunta di un nodo di tipo azione come ultimo figlio, nel caso ci sia un nodo di controllo che ha come ultimo figlio un nodo di condizione;</p>
+</li>
+<li>
+<p>la rimozione di un nodo di condizione nel caso ci sia un nodo di condizione identico immediatamente precedente;</p>
+</li>
+<li>
+<p>la rimozione di un nodo di controllo nel caso ci sia un nodo di controllo dello stesso tipo nella gerarchia dei nodi, immediatamente precedente o successivo. I figli del nodo di controllo possono essere promossi al livello in cui si trovava il padre oppure eliminati, a seconda della configurazione.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>L&#8217;utilizzo di operazioni di riparazione permette di esplorare lo spazio degli stati in modo più uniforme di quanto avverrebbe se ci si limitasse a scartare gli individui non validi <span class="citation">[<a href="#wilhelmstotterJeneticsManual">2 p.&#160;63</a>]</span>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modulo_per_la_sperimentazione">Modulo per la sperimentazione</h3>
+<div class="paragraph">
+<p>Il modulo <code>laboratory</code> fornisce l&#8217;implementazione di una applicazione di esempio avente come dominio quello mostrato in <a href="#domain">Listato 1</a>.</p>
+</div>
+<div id="domain" class="listingblock">
+<div class="title">Listato 1. Descrizione del dominio di esempio scelto per il progetto.</div>
+<div class="content">
+<pre>Un robot compie spostamenti in un ambiente definito come una griglia quadrata bidimensionale composta da celle e token. Le celle possono essere o meno navigabili. I token rappresentano delle luci o la posizione iniziale del robot.
+
+Il robot può solo muoversi in avanti, a sinistra o a destra.
+
+È incentivato a seguire la luce.
+
+È penalizzato in caso di collisioni con gli ostacoli e con i confini della griglia, oppure se si sposta su celle già visitate o se rimane fermo.
+
+Il compito del robot è di identificare il percorso ottimale, in presenza di vincoli e incertezze. In particolare deve deve massimizzare una funzione di ricompensa, dirigendosi verso la luce ed evitando gli ostacoli o i confini della griglia.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ciascun individuo della popolazione contiene un albero ottenuto tramite generazione casuale.
+I nodi impiegati per la generazione degli alberi, la mutazione e la riparazione sono scelti a partire dal registro di nodi foglia impiegato per eseguire l&#8217;applicazione.
+I nodi disponibili per la sperimentazione fanno parte di due gruppi.</p>
+</div>
+<div class="paragraph">
+<p>I nodi del primo gruppo sono:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>checkForAndStore{Goal,Obstacle,Boundary,Visited}</code>: restituisce un successo solo se è presente l&#8217;entità della griglia specificata in una qualsiasi delle quattro direzioni cardinali ed entro un raggio predefinito. L&#8217;impostazione predefinita controlla le celle adiacenti al robot. Nel caso siano identificate le entità specificate, si memorizzano i punti corrispondenti nella lavagna del robot;</p>
+</li>
+<li>
+<p><code>turnToAvoidStored</code>: restituisce un fallimento nel caso non ci siano punti memorizzati nella lavagna del robot. In caso contrario orienta il robot in una direzione casuale che evita il movimento sulle celle in corrispondenza dei punti indicati;</p>
+</li>
+<li>
+<p><code>turnToFollowStored</code>: restituisce un fallimento nel caso non ci siano punti memorizzati nella lavagna del robot. In caso contrario orienta il robot in una direzione casuale tra quelle che consentono il movimento sulle celle in corrispondenza dei punti indicati;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>I nodi del secondo gruppo sono:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>checkFor{Goal,Obstacle,Boundary,Visited}{Forward,Left,Right}</code>: restituisce un successo solo se è presente l&#8217;entità della griglia specificata nella direzione fornita ed entro un raggio predefinito. L&#8217;impostazione predefinita controlla le celle adiacenti al robot nella direzione fornita;</p>
+</li>
+<li>
+<p><code>turnTo{Left,Right}</code>: fa muovere il robot nella direzione indicata di una cella. Se il movimento comporta lo scontro con un ostacolo o il superamento dei confini della griglia, restituisce un fallimento, altrimenti un successo;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>I seguenti nodi sono presenti in entrambi i gruppi:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>stop</code>: è un nodo azione che restituisce sempre un successo ma non alcun effetto.</p>
+</li>
+<li>
+<p><code>turnRandomly</code>: è un nodo azione che imposta la direzione del robot in modo casuale;</p>
+</li>
+<li>
+<p><code>isNearerLight</code>: è un nodo condizione restituisce un successo solo se il robot si è avvicinato alla luce rispetto all&#8217;ultimo spostamento;</p>
+</li>
+<li>
+<p><code>moveForward</code>: è un nodo azione che fa muovere il robot di una cella in avanti, in funzione della direzione verso cui è orientato.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>L&#8217;ambiente è modellato tramite celle libere o che contengono un ostacolo e tramite un token che indica la posizione iniziale del robot e uno che indica la posizione della luce da raggiungere. Si impiega una funzione di generazione casuale che imposta la posizione iniziale del robot e la luce agli opposti di una griglia quadrata. Gli ostacoli sono piazzati casualmente in modo da lasciare almeno un percorso libero tra la posizione di partenza e l&#8217;obiettivo.</p>
+</div>
+<div class="paragraph">
+<p>La macchina a stati finita è modellata come mostrato in <a href="#fsm-gridworld">Figura 6</a>. Si osserva l&#8217;impiego di tre stati, <code>GoalReached</code>, <code>Idle</code> e <code>Moving</code>. Tracciare la transizione tra questi stati permette di raccogliere statistiche sull&#8217;andamento della simulazione, fornendo dati che sono poi utilizzati per il calcolo della funzione di fitness.</p>
+</div>
+<div id="fsm-gridworld" class="imageblock text-center">
+<div class="content">
+<img src="./assets/images/environment.svg" alt="environment" width="33360" height="17120">
+</div>
+<div class="title">Figura 6. Rappresentazione della macchina a stati finiti.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_implementazione">Implementazione</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Di seguito si approfondiscono alcuni degli aspetti implementativi ritenuti maggiormente rilevanti per il progetto.</p>
+</div>
+<div class="sect2">
+<h3 id="_tecnologie_impiegate">Tecnologie Impiegate</h3>
+<div class="paragraph">
+<p>Il progetto è stato implementato utilizzando:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Git per il controllo di versione;</p>
+</li>
+<li>
+<p>il JDK Eclipse Temurin (v. 21.0.3);</p>
+</li>
+<li>
+<p>il linguaggio di programmazione Kotlin (v. 2.1);</p>
+</li>
+<li>
+<p>il sistema di build automation Gradle (v. 8.12);</p>
+</li>
+<li>
+<p>la libreria per la programmazione genetica <a href="https://jenetics.io/">Jenetics</a> (v. 8.1);</p>
+</li>
+<li>
+<p>il linguaggio di markup Asciidoc e Asciidoctor (v. 2.0.22) per la documentazione.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Per un elenco esaustivo delle librerie impiegate e delle relative versioni si rimanda al <a href="https://github.com/rbattistini/btree-evolution/blob/main/gradle/libs.versions.toml">catalogo delle versioni</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_note_implementative_sul_crossover_e_la_mutazione">Note implementative sul crossover e la mutazione</h3>
+<div class="paragraph">
+<p>Le operazioni di crossover e mutazione sono state definite come manipolazioni della struttura dati dell&#8217;albero senza utilizzare una rappresentazione intermedia come stringa, a differenza di quanto svolto in <span class="citation">[<a href="#iovinoLearningBehaviorTrees2020">1</a>]</span>.</p>
+</div>
+<div class="paragraph">
+<p>Le due tipologie di operazioni sono state implementate in questo modo:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>nel crossover si sceglie casualmente un nodo di controllo in ciascuno dei due alberi fornito in ingresso. Dopodiché si scambiano i due sottoalberi selezionati, in modo che il sottoalbero del primo albero sia posto dove si trovava il sottoalbero del secondo, e viceversa. L&#8217;operazione si applica a due alberi e restituisce due alberi modificati;</p>
+</li>
+<li>
+<p>la mutazione esegue una delle tre operazioni di aggiunta, rimozione o modifica di un nodo con il 33% di probabilità per ciascuna di esse. In particolare:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>nell&#8217;aggiunta si ha una probabilità del 50% di selezionare un nodo di controllo e del 50% un nodo foglia. Nel secondo caso c&#8217;è una probabilità  del 50% di scegliere o un nodo azione o un nodo condizione. La probabilità di scegliere uno specifico nodo azione o condizione dipende dal numero di nodi di quel tipo che compongono il registro;</p>
+</li>
+<li>
+<p>nella rimozione si sceglie un nodo dell&#8217;albero casualmente, indipendentemente dal suo tipo. Nel caso il nodo rimosso sia di controllo, si può scegliere se preservare i suoi figli, promuovendoli al livello in cui si trovava il nodo di controllo, oppure se eliminarli. La modalità di funzionamento è definita dall&#8217;esperimento. Non è possibile eliminare il nodo radice;</p>
+</li>
+<li>
+<p>nella modifica di un nodo si svolgono azioni diverse a seconda del tipo di nodo. Nel caso di un nodo di controllo può comportare o lo scambio di tipo tra selettore e sequenza preservando i figli, oppure la conversione in un nodo foglia, promuovendo i figli allo stesso livello del nodo di controllo. Nel caso di un nodo foglia può determinare o la sostituzione con un nodo di controllo oppure la sostituzione con un qualsiasi altro nodo del registro di nodi.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_impiego_di_un_registro_di_nodi_foglia">Impiego di un registro di nodi foglia</h3>
+<div class="paragraph">
+<p>È stato implementato il pattern Flyweight perché il pool di nodi foglia sia condiviso da tutti gli alberi. In questo modo, indipendentemente dal numero di alberi istanziati durante l&#8217;esecuzione dell&#8217;algoritmo genetico, esisterà una sola istanza di ciascun tipo di nodo foglia.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_definizione_della_funzione_di_fitness">Definizione della funzione di fitness</h3>
+<div class="paragraph">
+<p>La funzione di fitness è definita in modo da penalizzare le generazioni che non raggiungono l&#8217;obiettivo e da ricompensare le porzioni di albero che costituiscono un buon materiale genetico.</p>
+</div>
+<div class="paragraph">
+<p>La valutazione avviene a partire dalle statistiche raccolte sull&#8217;andamento di una simulazione, ovvero:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>distanza iniziale dalla luce;</p>
+</li>
+<li>
+<p>distanza finale dalla luce;</p>
+</li>
+<li>
+<p>numero di iterazioni con collisione;</p>
+</li>
+<li>
+<p>numero di iterazioni in cui l&#8217;agente è fermo;</p>
+</li>
+<li>
+<p>numero di celle rivisitate;</p>
+</li>
+<li>
+<p>numero di iterazioni effettuate;</p>
+</li>
+<li>
+<p>dimensione dell&#8217;albero di comportamento.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>La distanza iniziale e finale dalla luce sono impiegate per il calcolo della ricompensa per la fototassi.
+Il premio è linearmente proporzionale a quanto l&#8217;agente si è avvicinato alla luce se c&#8217;è stato un avvicinamento, altrimenti è pari zero.
+Il risultato è normalizzato, in modo che il premio non dipenda dal valore assoluto della distanza.
+La formula corrispondente in pseudocodice è la seguente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>when {
+    d_start - d_final &lt;= 0 then 0
+    else ((d_start - d_final) / d_start) * w_phototaxis
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>dove:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>d_start</code> indica la distanza iniziale dalla luce;</p>
+</li>
+<li>
+<p><code>d_final</code> indica la distanza finale dalla luce;</p>
+</li>
+<li>
+<p><code>w_phototaxis</code> indica il peso della ricompensa per la fototassi.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Il numero di iterazioni con collisione è utilizzato per il calcolo della penalità dovuta alle collisioni.
+L&#8217;obiettivo è disincentivare i comportamenti che determinano un maggior numero di collisioni rispetto agli altri.
+Il calcolo avviene dividendo il numero di step con collisione per il numero di step totali, in modo da normalizzare il risultato.
+La formula corrispondente è la seguente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>-(s_collision / s_total) * w_collision</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>dove:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>s_collision</code> indica il numero di iterazioni con collisione;</p>
+</li>
+<li>
+<p><code>s_total</code> indica il numero di iterazioni totali;</p>
+</li>
+<li>
+<p><code>w_collision</code> indica il peso della penalità per le collisioni.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>La penalità legata al numero di iterazioni in cui l&#8217;agente non si muove spinge il processo di evoluzione a generare alberi di comportamento che restituiscono uno stato di successo, in quanto l&#8217;agente non compie azioni in un&#8217;iterazione se l&#8217;albero restituisce un fallimento.
+Il calcolo della penalità avviene nel seguente modo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>-(s_idle / s_total) * w_idle</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>dove:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>s_idle</code> indica il numero di iterazioni senza movimento;</p>
+</li>
+<li>
+<p><code>w_idle</code> indica il peso della penalità per l&#8217;assenza di movimento.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Il numero di celle rivisitate incentiva la ricerca di percorsi efficienti, ovvero che riducono il backtracking il più possible.
+Insieme al numero di iterazioni effettuate, consente di penalizzare percorsi eccessivamente lunghi.
+La penalità complessiva è calcolata in modo analogo a quella per le collisioni:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>-(s_backtracking / s_total) * w_backtracking</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>dove:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>s_backtracking</code> indica il numero di iterazioni in cui l&#8217;agente si muove su un cella precedentemente visitata;</p>
+</li>
+<li>
+<p><code>w_backtracking</code> indica il peso delle celle rivisitate.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>La dimensione dell&#8217;albero di comportamento consente la definizione di una penalità per disincentivare l&#8217;evoluzione di controller troppo complessi. È calcolata in questo modo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>when {
+    s_tree &gt;= s_maxTree then - w_treeComplexity
+    else 0
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>dove:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>s_tree</code> è la dimensione dell&#8217;albero;</p>
+</li>
+<li>
+<p><code>s_maxTree</code> è la massima dimensione dell&#8217;albero suggerita;</p>
+</li>
+<li>
+<p><code>w_treeComplexity</code> è il peso della penalità per la dimensione dell&#8217;albero.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Il risultato finale si ottiene sommando i singoli contributi e può comportare il calcolo della media dei valori di fitness ottenuti su più di un ambiente di test, ovvero su più griglie.
+In questo modo si migliora il grado di robustezza del controller e la sua capacità di generalizzazione.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dsl_per_alberi_di_comportamento_e_griglie">DSL per alberi di comportamento e griglie</h3>
+<div class="paragraph">
+<p>Per facilitare la definizione degli alberi di comportamento manuale, è stato implementato un DSL interno per realizzare una loro specifica concisa. Un esempio di utilizzo è mostrato in <a href="#btree-dsl-example">Listato 2</a>.</p>
+</div>
+<div id="btree-dsl-example" class="listingblock">
+<div class="title">Listato 2. Rappresentazione di un albero di comportamento che consente di effettuare la navigazione in un GridWorld evitando gli ostacoli e dirigendosi verso la luce.</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nf">btree</span> <span class="p">{</span>
+  <span class="p">+</span><span class="nf">sel</span><span class="p">(</span><span class="s">"Navigation"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">+</span><span class="nf">seq</span><span class="p">(</span><span class="s">"Phototaxis"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="p">+</span><span class="nf">checkForAndStore</span><span class="p">(</span><span class="nf">setOf</span><span class="p">(</span><span class="nc">GreenLight</span><span class="p">))</span>
+      <span class="p">+</span><span class="n">turnToFollowStored</span>
+      <span class="p">+</span><span class="n">moveForward</span>
+    <span class="p">}</span>
+    <span class="p">+</span><span class="nf">seq</span> <span class="p">{</span>
+      <span class="p">+</span><span class="nf">sel</span> <span class="p">{</span>
+        <span class="p">+</span><span class="nf">seq</span><span class="p">(</span><span class="s">"ObstacleAvoidance"</span><span class="p">)</span> <span class="p">{</span>
+          <span class="p">+</span><span class="nf">checkForAndStore</span><span class="p">(</span><span class="nf">setOf</span><span class="p">(</span><span class="nc">Obstacle</span><span class="p">,</span> <span class="nc">Boundary</span><span class="p">))</span>
+          <span class="p">+</span><span class="n">turnToAvoidStored</span>
+        <span class="p">}</span>
+        <span class="p">+</span><span class="n">turnRandomly</span>
+      <span class="p">}</span>
+      <span class="p">+</span><span class="n">moveForward</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In modo analogo è stato definito un DSL per la specifica della struttura della griglia, un cui esempio di utilizzo è mostrato in <a href="#grid-dsl-example">Listato 3</a> e la relativa rappresentazione in <a href="#grid-string">Listato 4</a>.</p>
+</div>
+<div id="grid-dsl-example" class="listingblock">
+<div class="title">Listato 3. Rappresentazione della griglia di default, impiegata sia nei test che quando non si riesce a generare una griglia valida entro un certo numero di tentativi.</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nf">grid</span><span class="p">(</span>
+  <span class="nc">DIMENSIONS</span><span class="p">,</span>
+  <span class="nf">mapOf</span><span class="p">(</span>
+    <span class="sc">'o'</span> <span class="nf">to</span> <span class="p">{</span> <span class="n">p</span><span class="p">:</span> <span class="nc">Point</span> <span class="p">-&gt;</span> <span class="nc">Obstacle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="p">},</span>
+    <span class="sc">'c'</span> <span class="nf">to</span> <span class="p">{</span> <span class="n">p</span><span class="p">:</span> <span class="nc">Point</span> <span class="p">-&gt;</span> <span class="nc">Clear</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="p">},</span>
+  <span class="p">),</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'o'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">-</span>
+  <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'o'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">-</span>
+  <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'o'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">-</span>
+  <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'o'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'o'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">-</span>
+  <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'o'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">-</span>
+  <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'o'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span> <span class="p">+</span> <span class="sc">'c'</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div id="grid-string" class="listingblock">
+<div class="title">Listato 4. Rappresentazione di una griglia. Si osserva la distinzione tra le celle libere <code>.</code> e quelle occupate da un ostacolo <code>O</code> e tra i token che denotano la posizione iniziale del robot <code>S</code>, la posizione corrente del robot <code>B</code> e la luce che deve essere raggiunta, ovvero l&#8217;obiettivo <code>G</code>.</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="example">| S | . | O | . | . | . |
+| . | O | . | . | . | . |
+| . | O | . | . | . | . |
+| B | O | . | O | . | . |
+| . | . | . | O | . | . |
+| . | O | . | . | . | G |</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_valutazione">Valutazione</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_test_e_qualità_del_codice">Test e qualità del codice</h3>
+<div class="paragraph">
+<p>Al fine di garantire il corretto funzionamento dell&#8217;algoritmo genetico è stata realizzata una suite di test per verificare il funzionamento delle operazioni necessarie alla manipolazione degli alberi e alla definizione del loro grado di fitness nelle simulazioni.
+Inoltre è stato verificato il funzionamento della simulazione e dei suoi componenti.</p>
+</div>
+<div class="paragraph">
+<p>I test sono stati realizzati impiegando il formato delle <code>ShouldSpec</code>, introdotto dalla libreria <code>Kotest</code>.
+Sono disponibili nel modulo <code>laboratory</code>.
+Tramite <code>Kover</code> è  stato misurato il grado di coverage per il codice relativo ai moduli <code>simulation</code> e <code>laboratory</code>, pari a circa il 50%.</p>
+</div>
+<div class="paragraph">
+<p>Per quanto riguarda la qualità del codice sono stati impiegati gli strumenti <code>Ktlint</code> e <code>Detekt</code>, in modo da stabilire delle regole di formattazione e da eliminare i code smell più comuni.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_esperimenti">Esperimenti</h3>
+<div class="paragraph">
+<p>I test sono stati eseguiti su un computer con un processore Intel Core i7-10700 @4.8 GHz e 16 GB di RAM.
+È stata effettuata una grid search con le seguenti configurazioni di parametri:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>probabilità di crossover e mutazione:</p>
+</li>
+<li>
+<p>dimensioni della griglia, numero di ostacoli e massimo numero di iterazioni di ciascuna delle tre simulazioni utilizzate per il calcolo della fitness;</p>
+</li>
+<li>
+<p>profondità degli alberi generati casualmente, numero minimo e massimo di figli per ciascun nodo di controllo.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Per l&#8217;analisi dei risultati sono stati considerati ventiquattro esperimenti.
+Il task gradle <code>runGAWithGridSearch</code> è stato impiegato per la generazione dei dati.
+In <a href="#fitness-params">Tabella 2</a> sono riportati i pesi impiegati per il calcolo della fitness in tutti gli esperimenti.
+In base alla configurazione dei pesi il massimo valore di fitness ottenibile è pari a cento.
+Per un elenco esaustivo dei parametri impiegati in ciascun esperimento si rimanda all&#8217;archivio degli esperimenti, disponibile <a href="">qui</a>.</p>
+</div>
+<table id="ga-params" class="tableblock frame-all grid-all stripes-odd stretch">
+<caption class="title">Tabella 1. Parametri impiegati per l&#8217;algoritmo genetico nei tre esperimenti in analisi.</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 22.2222%;">
+<col style="width: 22.2222%;">
+<col style="width: 22.2223%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lucid_liskov</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>inspiring_sanderson</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>wonderful_thompson</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dimensioni della griglia</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Popolazione</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generazioni max.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Steady fitness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">300</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">300</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">300</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Mutazione</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">70</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">60</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Crossover</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">70</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">60</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In <a href="#ga-params">Tabella 1</a> sono riportati i parametri relativi a ciascuna delle tre configurazioni della griglia in analisi.
+In <a href="#best-fitness">Figura 7</a> si riporta il miglior risultato in termini di fitness per ciascuna configurazione della griglia, utilizzando <code>Elitism</code> come selettore dei sopravvissuti e <code>Tournament</code> come selettore della progenie, a confronto con i risultati ottenuti da una baseline che impiega un selettore di Montecarlo.</p>
+</div>
+<div class="paragraph">
+<p>Si osserva che l&#8217;algoritmo genetico implementato è in grado di generare alberi più prestanti di quelli ottenuti tramite un processo di selezione casuale.</p>
+</div>
+<table id="fitness-params" class="tableblock frame-all grid-all stripes-odd stretch">
+<caption class="title">Tabella 2. Pesi impiegati nel calcolo della funzione di fitness.</caption>
+<colgroup>
+<col style="width: 60%;">
+<col style="width: 40%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nome del peso</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Valore</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Phototaxis Reward</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Collision Penalty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Idle Penalty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">60</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Backtracking Penalty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tree Complexity Penalty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">50</p></td>
+</tr>
+</tbody>
+</table>
+<div id="best-fitness" class="imageblock text-center">
+<div class="content">
+<img src="./assets/images/fitness_evaluation.png" alt="fitness evaluation">
+</div>
+<div class="title">Figura 7. Grafico della miglior fitness ottenuta per ciascuna generazione nei tre esperimenti in analisi. <code>confident_euler</code>, <code>elegant_lalande</code> e <code>flamboyant_ride</code> sono gli esperimenti che utilizzano il selettore di Montecarlo per ciascuna delle tre configurazione sperimentali.</div>
+</div>
+<div class="paragraph">
+<p>In <a href="#best-fitness-candle">Figura 8</a> si riporta un confronto con i valori di fitness ottenuti dagli alberi dei tre esperimenti in analisi a confronto con due alberi di comportamento programmati manualmente e un albero che determina un movimento casuale nell&#8217;ambiente di test, come baseline di confronto.
+Sono mostrati i risultati ottenuti calcolando la media del valore di fitness su trentasei simulazioni ottenute considerando diverse configurazioni della griglia e un diverso numero di iterazioni per la simulazione.
+I dati sono stati generati con il task gradle <code>compareBTrees</code>.</p>
+</div>
+<div id="best-fitness-candle" class="imageblock text-center">
+<div class="content">
+<img src="./assets/images/btrees_evaluation.png" alt="btrees evaluation">
+</div>
+<div class="title">Figura 8. Diagramma a scatola e baffi della miglior fitness ottenuta in ciascuno dei tre esperimenti in analisi, a confronto con i risultati ottenuti impiegando un albero per il movimento casuale e due alberi sviluppati manualmente.</div>
+</div>
+<div class="paragraph">
+<p>Si osserva che le prestazioni degli alberi generati manualmente, rispettivamente <code>handcrafted1</code> mostrato in <a href="#btree-handcrafted-baseline">Listato 9</a> e <code>handcrafted2</code> mostrato in <a href="#btree-handcrafted-baseline2">Listato 10</a>, sono leggermente migliori rispetto a quelle degli alberi ottenuti tramite evoluzione.
+L&#8217;albero che assume un comportamento casuale, mostrato in <a href="#btree-random-baseline">Listato 8</a>, risulta effettivamente penalizzato dalla funzione di fitness.
+Per quanto riguarda gli alberi appresi, mostrati in <a href="#btree-evolved-grid5">Listato 5</a>, <a href="#btree-evolved-grid7">Listato 6</a> e <a href="#btree-evolved-grid9">Listato 7</a>, si osserva che indipendentemente dalle diverse configurazioni e dall&#8217;ambiente di test si ottengono risultati molto simili tra loro. Dal punto di vista strutturale, gli alberi ottenuti tramite evoluzione sono molto simili a <code>handcrafted1</code>, con la differenza che non impiegano nodi condizione direttamente relativi al comportamento della fototassi.</p>
+</div>
+<div id="btree-evolved-grid5" class="listingblock">
+<div class="title">Listato 5. Rappresentazione testuale dell&#8217;albero relativo all&#8217;esperimento <code>lucid_liskov</code> (<code>exp1</code>).</div>
+<div class="content">
+<pre>└── Selector
+    ├── Sequence
+    │   ├── moveForward
+    │   ├── checkForAndStore[Obstacle, Boundary, Visited]
+    │   ├── turnToAvoidStored
+    │   └── turnToAvoidStored
+    └── turnRandomly</pre>
+</div>
+</div>
+<div id="btree-evolved-grid7" class="listingblock">
+<div class="title">Listato 6. Rappresentazione testuale dell&#8217;albero relativo all&#8217;esperimento <code>inspiring_sanderson</code> (<code>exp2</code>).</div>
+<div class="content">
+<pre>└── Sequence
+    └── Selector
+        ├── Sequence
+        │   ├── checkForAndStore[Obstacle, Boundary, Visited]
+        │   ├── turnToAvoidStored
+        │   ├── moveForward
+        │   └── turnRandomly
+        ├── Sequence
+        │   ├── turnRandomly
+        │   └── moveForward
+        └── turnToAvoidStored</pre>
+</div>
+</div>
+<div id="btree-evolved-grid9" class="listingblock">
+<div class="title">Listato 7. Rappresentazione testuale dell&#8217;albero relativo all&#8217;esperimento <code>wonderful_thompson</code> (<code>exp3</code>).</div>
+<div class="content">
+<pre>└── Selector
+    ├── Sequence
+    │   ├── Selector
+    │   │   └── moveForward
+    │   ├── checkForAndStore[Obstacle, Boundary, Visited]
+    │   └── turnToAvoidStored
+    ├── turnRandomly
+    ├── Sequence
+    │   ├── moveForward
+    │   └── turnToAvoidStored
+    └── Stop</pre>
+</div>
+</div>
+<div id="btree-random-baseline" class="listingblock">
+<div class="title">Listato 8. Rappresentazione testuale di un albero che determina un movimento casuale nella griglia. Si tratta anche del tipo di albero verso cui converge la variante dell&#8217;algoritmo che impiega il selettore Montecarlo.</div>
+<div class="content">
+<pre>└── Sequence
+    ├── moveForward
+    └── turnRandomly</pre>
+</div>
+</div>
+<div id="btree-handcrafted-baseline" class="listingblock">
+<div class="title">Listato 9. Rappresentazione testuale dell&#8217;albero sviluppato manualmente <code>handcrafted1</code>. Dato che il comportamento di fototassi determina il raggiungimento della luce verde solo se si trova in una cella immediatamente adiacente al robot, la principale ragione di successo dell&#8217;albero sta nella capacità di navigare l&#8217;ambiente evitando gli ostacoli e le celle già visitate.</div>
+<div class="content">
+<pre>└── Navigation
+    ├── Phototaxis
+    │   ├── checkForAndStore[GreenLight]
+    │   ├── turnToFollowStored
+    │   └── moveForward
+    └── Sequence
+        ├── Selector
+        │   ├── ObstacleAvoidance
+        │   │   ├── checkForAndStore[Obstacle, Boundary]
+        │   │   └── turnToAvoidStored
+        │   └── turnRandomly
+        └── moveForward</pre>
+</div>
+</div>
+<div id="btree-handcrafted-baseline2" class="listingblock">
+<div class="title">Listato 10. Rappresentazione testuale dell&#8217;albero sviluppato manualmente <code>handcrafted2</code>. La condizione <code>isNearerLight</code> permette di navigare in maniera più efficiente ampi spazi liberi da ostacoli.</div>
+<div class="content">
+<pre>└── Sequence
+    ├── Selector
+    │   ├── isNearerLight
+    │   └── Selector
+    │       ├── Sequence
+    │       │   ├── checkForAndStore[Obstacle, Boundary, Visited]
+    │       │   └── turnToAvoidStored
+    │       └── turnRandomly
+    └── Selector
+        ├── moveForward
+        └── Sequence
+            ├── checkForAndStore[Obstacle, Boundary, Visited]
+            ├── turnToAvoidStored
+            └── moveForward</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I risultati di ciascun esperimento sono riportati impiegando lo schema indicato in <a href="#exp-result-schema">Listato 11</a>, oltre che quelli mostrati in <a href="#exp-config-schema">Listato 12</a> e <a href="#exp-moments-schema">Listato 13</a>.</p>
+</div>
+<div id="exp-result-schema" class="listingblock">
+<div class="title">Listato 11. Rappresentazione della schema impiegato per memorizzare i risultati di un esperimento.</div>
+<div class="content">
+<pre>name: String
+time: Long
+generationStats: *
+    generation: Int
+    population: Int
+    bestFitness: Double
+    averageFitness: Double
+    time: Int
+parameters: Parameters
+globalStats:
+    leafNodes: List&lt;String&gt;
+    mutations: List&lt;String&gt;
+    reparations: List&lt;String&gt;
+    generations: Int
+    altered: Moments
+    killed: Moments
+    invalids: Moments
+    bestBTree: String
+    phenotypeAge: Moments
+    bestFitness: Moments
+    alterDuration: Moments
+    evolveDuration: Moments
+    selectionDuration: Moments
+    evalDuration: Moments</pre>
+</div>
+</div>
+<div id="exp-config-schema" class="listingblock">
+<div class="title">Listato 12. Rappresentazione dello schema relativo ai parametri dell&#8217;algoritmo genetico.</div>
+<div class="content">
+<pre>defaultSeed: Int
+populationSize: Int
+maxPhenotypeAge: Int
+mutationProbability: Double
+crossoverProbability: Double
+eliteCount: Int
+tournamentSampleSize: Int
+steadyFitness: Int
+maxGenerations: Int
+maxReparationAttempts: Int
+leafNodes: String
+keepChildren: Boolean,
+gridDimensions: Int
+gridObstacles: Int
+maxTreeDepth: Int
+minTreeChildren: Int
+maxTreeChildren: Int
+maxSimSteps: Int
+deltaTime: Int
+startVirtualTime: Int
+phototaxisReward: Double
+collisionPenalty: Double
+backtrackingPenalty: Double
+idlePenalty: Double
+treeComplexityPenalty: Double
+maxTreeSize: Int
+simRunsPerFitnessEval: Int</pre>
+</div>
+</div>
+<div id="exp-moments-schema" class="listingblock">
+<div class="title">Listato 13. Rappresentazione dello schema relativo ai momenti. Jenetics impiega tre tipologie di momenti per la raccolta delle statistiche, <code>IntMoments</code>, <code>LongMoments</code> e <code>DoubleMoments</code>.</div>
+<div class="content">
+<pre>count: Int/Long
+min: Int/Long/Double
+max: Int/Long/Double
+sum: Int/Long/Double
+mean: Int/Long/Double
+variance: Double
+skewness: Double
+kurtosis: Double</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusioni_e_sviluppi_futuri">Conclusioni e sviluppi futuri</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Lo svolgimento di questo progetto ha portato alla realizzazione di un sistema per l&#8217;implementazione automatica di un controller robotico che consenta di portare a termine semplici compiti di navigazione in un ambiente simulato.</p>
+</div>
+<div class="paragraph">
+<p>Il progetto è disponibile con licenza open source <a href="https://github.com/rbattistini/btree-evolution/tree/main">qui</a>.</p>
+</div>
+<div class="paragraph">
+<p>Tra i potenziali sviluppi futuri:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>modificare la valutazione del grado di fitness in funzione del numero di generazioni, ad esempio per introdurre ambienti di test gradualmente più complessi;</p>
+</li>
+<li>
+<p>sperimentare con pool di geni formati da nodi foglia di diverso genere;</p>
+</li>
+<li>
+<p>esplorare lo spazio delle configurazioni in modo automatico;</p>
+</li>
+<li>
+<p>definire nuovi domini di test per evolvere alberi che realizzano comportamenti di più alto livello.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bibliografia">Bibliografia</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a id="iovinoLearningBehaviorTrees2020"></a>[1] M. Iovino, J. Styrud, P. Falco, e C. Smith, «Learning Behavior Trees with Genetic Programming in Unpredictable Environments», n. arXiv:2011.03252. arXiv, nov. 2020, Consultato: gen. 12, 2025. [Online].</p>
+</div>
+<div class="paragraph">
+<p><a id="wilhelmstotterJeneticsManual"></a>[2] F. Wilhelmstötter, «Jenetics Manual». Consultato: gen. 12, 2025. [Online]. Disponibile su: <a href="https://jenetics.io/manual/manual-7.1.0.pdf" class="bare">https://jenetics.io/manual/manual-7.1.0.pdf</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2025-01-17 16:59:01 +0100
+</div>
+</div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+</html>

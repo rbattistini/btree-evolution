@@ -227,7 +227,7 @@ La trasformazione degli alberi ha lo scopo di eliminare le combinazioni di nodi 
 - l'aggiunta di un nodo di tipo azione nel caso ci sia un nodo di controllo senza figli;
 - l'aggiunta di un nodo di tipo azione come ultimo figlio, nel caso ci sia un nodo di controllo che ha come ultimo figlio un nodo di condizione;
 - la rimozione di un nodo di condizione nel caso ci sia un nodo di condizione identico immediatamente precedente;
-- la rimozione di un nodo di controllo nel caso ci sia un nodo di controllo dello stesso tipo nella gerarchia dei nodi, immediatamente precedente o successivo. I figli del nodo di controllo sono promossi al livello in cui si trovava il padre.
+- la rimozione di un nodo di controllo nel caso ci sia un nodo di controllo dello stesso tipo nella gerarchia dei nodi, immediatamente precedente o successivo. I figli del nodo di controllo possono essere promossi al livello in cui si trovava il padre oppure eliminati, a seconda della configurazione.
 
 L'utilizzo di operazioni di riparazione permette di esplorare lo spazio degli stati in modo più uniforme di quanto avverrebbe se ci si limitasse a scartare gli individui non validi cite:[wilhelmstotterJeneticsManual(63)].
 
@@ -247,7 +247,7 @@ Il robot può solo muoversi in avanti, a sinistra o a destra.
 
 È penalizzato in caso di collisioni con gli ostacoli e con i confini della griglia, oppure se si sposta su celle già visitate o se rimane fermo.
 
-Il compito del robot è di identificare il percorso ottimale, in presenza di vincoli e incertezze. In particolare deve deve massimizzare una funzione di ricompensa, andando verso le luci ed evitando gli ostacoli o i confini della griglia.
+Il compito del robot è di identificare il percorso ottimale, in presenza di vincoli e incertezze. In particolare deve deve massimizzare una funzione di ricompensa, dirigendosi verso la luce ed evitando gli ostacoli o i confini della griglia.
 ----
 
 Ciascun individuo della popolazione contiene un albero ottenuto tramite generazione casuale.
@@ -263,7 +263,7 @@ I nodi del primo gruppo sono:
 I nodi del secondo gruppo sono:
 
 - `checkFor{Goal,Obstacle,Boundary,Visited}{Forward,Left,Right}`: restituisce un successo solo se è presente l'entità della griglia specificata nella direzione fornita ed entro un raggio predefinito. L'impostazione predefinita controlla le celle adiacenti al robot nella direzione fornita;
-- `turnTo{Left,Right}`: restituisce sempre un successo e fa muovere il robot nella direzione indicata di una cella. Se il movimento comporta lo scontro con un ostacolo o il superamento dei confini della griglia, è intercettato dalla macchina a stati finiti. Il movimento del robot è annullato e si memorizza l'avvenuta collisione. Analogamente si memorizzano le informazioni relative al movimento in celle già visitate e all'assenza di movimento;
+- `turnTo{Left,Right}`: fa muovere il robot nella direzione indicata di una cella. Se il movimento comporta lo scontro con un ostacolo o il superamento dei confini della griglia, restituisce un fallimento, altrimenti un successo;
 
 I seguenti nodi sono presenti in entrambi i gruppi:
 
@@ -322,7 +322,7 @@ Le due tipologie di operazioni sono state implementate in questo modo:
 
 === Impiego di un registro di nodi foglia
 
-È stato implementato il pattern Flyweight perché il pool di nodi foglia sia condiviso da tutti gli alberi. In questo modo, indipendentemente dal numero di alberi istanziati durante l'esecuzione dell'algoritmo genetico, esisterà una sola istanza di ciascun nodo foglia per ogni tipologia.
+È stato implementato il pattern Flyweight perché il pool di nodi foglia sia condiviso da tutti gli alberi. In questo modo, indipendentemente dal numero di alberi istanziati durante l'esecuzione dell'algoritmo genetico, esisterà una sola istanza di ciascun tipo di nodo foglia.
 
 === Definizione della funzione di fitness
 
@@ -416,7 +416,7 @@ dove:
 - `s_maxTree` è la massima dimensione dell'albero suggerita;
 - `w_treeComplexity` è il peso della penalità per la dimensione dell'albero.
 
-Il risultato finale si ottiene sommando i singoli contributi e può essere ottenuto calcolando la media dei valori di fitness ottenuti su più di un ambiente di test, ovvero su più griglie.
+Il risultato finale si ottiene sommando i singoli contributi e può comportare il calcolo della media dei valori di fitness ottenuti su più di un ambiente di test, ovvero su più griglie.
 In questo modo si migliora il grado di robustezza del controller e la sua capacità di generalizzazione.
 
 === DSL per alberi di comportamento e griglie
@@ -451,7 +451,7 @@ btree {
 In modo analogo è stato definito un DSL per la specifica della struttura della griglia, un cui esempio di utilizzo è mostrato in <<grid-dsl-example>> e la relativa rappresentazione in <<grid-string>>.
 
 [#grid-dsl-example]
-.Rappresentazione della griglia di default, impiegata sia nei test che quando si disabilita la generazione casuale di griglie negli esperimenti.
+.Rappresentazione della griglia di default, impiegata sia nei test che quando non si riesce a generare una griglia valida entro un certo numero di tentativi.
 [source, kotlin]
 ----
 grid(
@@ -506,6 +506,7 @@ I test sono stati eseguiti su un computer con un processore Intel Core i7-10700 
 
 Per l'analisi dei risultati sono stati considerati ventiquattro esperimenti.
 Il task gradle `runGAWithGridSearch` è stato impiegato per la generazione dei dati.
+In <<fitness-params>> sono riportati i pesi impiegati per il calcolo della fitness in tutti gli esperimenti.
 In base alla configurazione dei pesi il massimo valore di fitness ottenibile è pari a cento.
 Per un elenco esaustivo dei parametri impiegati in ciascun esperimento si rimanda all'archivio degli esperimenti, disponibile link:[qui].
 
@@ -522,9 +523,9 @@ Per un elenco esaustivo dei parametri impiegati in ciascun esperimento si rimand
 | % Crossover | 70 | 60 | 80
 |===
 
-In <<best-fitness>> si riporta il miglior risultato in termini di fitness per ciascuna configurazione della griglia, utilizzando `Elitism` come selettore dei sopravvissuti e `Tournament` come selettore della progenie, a confronto con i risultati ottenuti da una baseline che impiega un selettore di Montecarlo.
 In <<ga-params>> sono riportati i parametri relativi a ciascuna delle tre configurazioni della griglia in analisi.
-In <<fitness-params>> sono riportati i pesi impiegati per il calcolo della fitness in tutti gli esperimenti.
+In <<best-fitness>> si riporta il miglior risultato in termini di fitness per ciascuna configurazione della griglia, utilizzando `Elitism` come selettore dei sopravvissuti e `Tournament` come selettore della progenie, a confronto con i risultati ottenuti da una baseline che impiega un selettore di Montecarlo.
+
 Si osserva che l'algoritmo genetico implementato è in grado di generare alberi più prestanti di quelli ottenuti tramite un processo di selezione casuale.
 
 [#fitness-params]
@@ -548,7 +549,7 @@ Sono mostrati i risultati ottenuti calcolando la media del valore di fitness su 
 I dati sono stati generati con il task gradle `compareBTrees`.
 
 [#best-fitness-candle]
-.Grafico a candela della miglior fitness ottenuta in ciascuno dei tre esperimenti in analisi, a confronto con i risultati ottenuti impiegando un albero per il movimento casuale e due alberi sviluppati manualmente.
+.Diagramma a scatola e baffi della miglior fitness ottenuta in ciascuno dei tre esperimenti in analisi, a confronto con i risultati ottenuti impiegando un albero per il movimento casuale e due alberi sviluppati manualmente.
 image::btrees_evaluation.png[align=center, scale=25%]
 
 Si osserva che le prestazioni degli alberi generati manualmente, rispettivamente `handcrafted1` mostrato in <<btree-handcrafted-baseline>> e `handcrafted2` mostrato in <<btree-handcrafted-baseline2>>, sono leggermente migliori rispetto a quelle degli alberi ottenuti tramite evoluzione.
@@ -557,7 +558,7 @@ Per quanto riguarda gli alberi appresi, mostrati in <<btree-evolved-grid5>>, <<b
 
 [#btree-evolved-grid5]
 [example]
-.Rappresentazione testuale dell'albero relativo all'esperimento `lucid_liskov`.
+.Rappresentazione testuale dell'albero relativo all'esperimento `lucid_liskov` (`exp1`).
 ----
 └── Selector
     ├── Sequence
@@ -569,7 +570,7 @@ Per quanto riguarda gli alberi appresi, mostrati in <<btree-evolved-grid5>>, <<b
 ----
 
 [#btree-evolved-grid7]
-.Rappresentazione testuale dell'albero relativo all'esperimento `inspiring_sanderson`.
+.Rappresentazione testuale dell'albero relativo all'esperimento `inspiring_sanderson` (`exp2`).
 [example]
 ----
 └── Sequence
@@ -586,7 +587,7 @@ Per quanto riguarda gli alberi appresi, mostrati in <<btree-evolved-grid5>>, <<b
 ----
 
 [#btree-evolved-grid9]
-.Rappresentazione testuale dell'albero relativo all'esperimento `wonderful_thompson`.
+.Rappresentazione testuale dell'albero relativo all'esperimento `wonderful_thompson` (`exp3`).
 [example]
 ----
 └── Selector
@@ -738,8 +739,8 @@ Tra i potenziali sviluppi futuri:
 
 - modificare la valutazione del grado di fitness in funzione del numero di generazioni, ad esempio per introdurre ambienti di test gradualmente più complessi;
 - sperimentare con pool di geni formati da nodi foglia di diverso genere;
-- esplorare lo spazio delle configurazioni in modo automatico, come Iterated Race;
-- definire nuovi domini di test.
+- esplorare lo spazio delle configurazioni in modo automatico;
+- definire nuovi domini di test per evolvere alberi che realizzano comportamenti di più alto livello.
 
 == Bibliografia
 

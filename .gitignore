@@ -1,5 +1,5 @@
 ### Asciidoc ###
-doc/output
+doc/output/.asciidoctor
 
 ### Gradle ###
 .gradle
